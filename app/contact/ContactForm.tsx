@@ -9,7 +9,7 @@ export default function ContactForm() {
     subject: '',
     budget: '',
     message: '',
-    services: []
+    services: [] as string[]
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState('');
