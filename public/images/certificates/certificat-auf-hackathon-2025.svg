@@ -1,0 +1,78 @@
+<svg width="400" height="225" viewBox="0 0 400 225" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="paperGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f8fafc;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="aufGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e40af;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#60a5fa;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fbbf24;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#f59e0b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#d97706;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Certificate background -->
+  <rect width="400" height="225" fill="url(#paperGradient)" stroke="url(#aufGradient)" stroke-width="4" rx="8"/>
+  
+  <!-- Decorative border -->
+  <rect x="10" y="10" width="380" height="205" fill="none" stroke="#e5e7eb" stroke-width="1" rx="5"/>
+  <rect x="15" y="15" width="370" height="195" fill="none" stroke="url(#aufGradient)" stroke-width="2" rx="5"/>
+  
+  <!-- Header with AUF branding -->
+  <rect x="0" y="0" width="400" height="45" fill="url(#aufGradient)" rx="8"/>
+  <rect x="0" y="35" width="400" height="10" fill="url(#aufGradient)" opacity="0.3"/>
+  
+  <!-- AUF Logo placeholder -->
+  <circle cx="50" cy="22" r="15" fill="white" opacity="0.9"/>
+  <text x="50" y="27" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#1e40af">AUF</text>
+  
+  <!-- Header text -->
+  <text x="200" y="20" text-anchor="middle" font-family="serif" font-size="14" font-weight="bold" fill="white">AGENCE UNIVERSITAIRE DE LA FRANCOPHONIE</text>
+  <text x="200" y="35" text-anchor="middle" font-family="serif" font-size="10" fill="white" opacity="0.9">HACKATHON 2025</text>
+  
+  <!-- Main title -->
+  <text x="200" y="70" text-anchor="middle" font-family="serif" font-size="18" font-weight="bold" fill="#1e40af">CERTIFICAT DE MÉRITE</text>
+  
+  <!-- Decorative line -->
+  <line x1="100" y1="80" x2="300" y2="80" stroke="url(#goldGradient)" stroke-width="2"/>
+  
+  <!-- Award details -->
+  <text x="200" y="100" text-anchor="middle" font-family="serif" font-size="11" fill="#374151">Décerné à</text>
+  <text x="200" y="118" text-anchor="middle" font-family="serif" font-size="16" font-weight="bold" fill="#1f2937">NOUKPO AURIOL JULIANO URIEL LISSAN</text>
+  
+  <!-- Achievement description -->
+  <text x="200" y="140" text-anchor="middle" font-family="serif" font-size="10" fill="#6b7280">Pour avoir obtenu la</text>
+  <text x="200" y="155" text-anchor="middle" font-family="serif" font-size="14" font-weight="bold" fill="url(#goldGradient)">2ème PLACE</text>
+  <text x="200" y="170" text-anchor="middle" font-family="serif" font-size="10" fill="#6b7280">avec le projet "YÓVÒ GBÈ" - Application d'apprentissage linguistique</text>
+  
+  <!-- Medal/Award icon -->
+  <circle cx="350" cy="120" r="20" fill="url(#goldGradient)" opacity="0.2"/>
+  <circle cx="350" cy="120" r="15" fill="none" stroke="url(#goldGradient)" stroke-width="2"/>
+  <text x="350" y="125" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#d97706">2</text>
+  
+  <!-- Date and location -->
+  <text x="80" y="195" text-anchor="middle" font-family="serif" font-size="9" fill="#9ca3af">Abomey Calavi, Bénin</text>
+  <text x="80" y="207" text-anchor="middle" font-family="serif" font-size="9" fill="#9ca3af">Avril 2025</text>
+  <line x1="50" y1="210" x2="110" y2="210" stroke="#d1d5db" stroke-width="1"/>
+  
+  <!-- Signature area -->
+  <text x="320" y="195" text-anchor="middle" font-family="serif" font-size="9" fill="#9ca3af">Directeur AUF</text>
+  <line x1="280" y1="210" x2="360" y2="210" stroke="#d1d5db" stroke-width="1"/>
+  
+  <!-- Footer decoration -->
+  <rect x="30" y="218" width="340" height="2" fill="url(#aufGradient)" opacity="0.5"/>
+  
+  <!-- Decorative elements -->
+  <circle cx="30" cy="60" r="3" fill="url(#goldGradient)" opacity="0.6"/>
+  <circle cx="370" cy="60" r="3" fill="url(#goldGradient)" opacity="0.6"/>
+  <circle cx="30" cy="180" r="3" fill="url(#aufGradient)" opacity="0.6"/>
+  <circle cx="370" cy="180" r="3" fill="url(#aufGradient)" opacity="0.6"/>
+  
+  <!-- Watermark -->
+  <text x="200" y="112" text-anchor="middle" font-family="serif" font-size="40" fill="#3b82f6" opacity="0.05" transform="rotate(-15 200 112)">AUF 2025</text>
+</svg>

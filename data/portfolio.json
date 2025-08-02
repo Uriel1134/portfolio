@@ -1,0 +1,387 @@
+{
+  "projects": [
+    {
+      "id": "ptccare-mobile",
+      "title": "PTCCARE Mobile",
+      "description": "Application mobile de collecte et de synchronisation des données de santé de la femme enceinte et des enfants de moins de cinq ans.",
+      "longDescription": "PTCCARE Mobile est une application de santé destinée à faciliter la collecte et la synchronisation des données médicales des femmes enceintes et des enfants de moins de cinq ans. Elle est conçue avec une interface intuitive centrée sur l'agent de santé. L'objectif est d'améliorer le suivi médical et la prise de décision en milieu rural.",
+      "image": "/images/projects/ptc-care.png",
+      "category": [
+        "UI/UX Design",
+        "Développement Mobile"
+      ],
+      "tech": [
+        "Figma",
+        "Flutter",
+        "SQLite"
+      ],
+      "year": "2025",
+      "figmaLink": "https://figma.com/ptccare-mobile",
+      "githubLink": "https://github.com/auriol-lissan/ptccare-mobile",
+      "createdAt": "2025-01-01T00:00:00.000Z",
+      "updatedAt": "2025-08-02T08:20:16.689Z"
+    },
+    {
+      "id": "insti-meteo",
+      "title": "INSTI METEO",
+      "description": "Application mobile de suivi des parametres météologiques dans l'Institut National Supérieur de Technologie Industrielle de Lokossa avec un système IOT connecté.",
+      "longDescription": "INSTI METEO est une application mobile connectée à un système IoT permettant de suivre en temps réel les paramètres météorologiques sur à l'INSTI Lokossa. Elle collecte et affiche des données comme la température, l'humidité et la pression. Le projet vise à sensibiliser et appuyer la recherche locale sur le climat.",
+      "image": "/images/projects/insti-meteo.png",
+      "category": [
+        "UI/UX Design",
+        "Développement Mobile"
+      ],
+      "tech": [
+        "Figma",
+        "Flutter",
+        "Firebase"
+      ],
+      "year": "2025",
+      "figmaLink": "https://figma.com/insti-meteo",
+      "githubLink": "https://github.com/auriol-lissan/insti-meteo",
+      "createdAt": "2025-01-01T00:00:00.000Z",
+      "updatedAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "bemi-app",
+      "title": "Bèmi",
+      "description": "Application mobile qui aide à bien trier tous les types de déchets grâce à l'intelligence artificielle et au QR code.Et à chaque bon geste, tu gagnes des cadeaux, qu'on appelle les \"kwètché\".",
+      "longDescription": "BèmiApp est une application mobile intelligente qui facilite le tri des déchets grâce à la reconnaissance via QR code et à l'intelligence artificielle. Chaque tri correct permet de gagner des récompenses appelées \"kwètché\", encourageant ainsi les bons gestes écologiques. L'application allie technologie et écoresponsabilité pour promouvoir un environnement plus propre.",
+      "image": "/images/projects/Bèmi.png",
+      "category": [
+        "UI/UX Design",
+        "Développement Mobile"
+      ],
+      "tech": [
+        "Figma",
+        "Flutter",
+        "Laravel",
+        "MySQL"
+      ],
+      "year": "2025",
+      "figmaLink": "https://figma.com/bemi-app",
+      "githubLink": "https://github.com/auriol-lissan/bemi-app",
+      "createdAt": "2025-01-01T00:00:00.000Z",
+      "updatedAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "yovo-gbe",
+      "title": "YÓVÒ GBÈ",
+      "description": "Application Mobile d'apprentissage linguistique du français à partir du fongbe immersive intégrant des éléments culturels africains avec une approche pédagogique moderne.",
+      "longDescription": "YÓVÒ GBÈ est une application mobile d'apprentissage du français destinée aux artisans, commerçants et autres personnes parlant le fon. Elle utilise une approche intuitive basée sur l'écoute audio (voix off) et des illustrations visuelles. L'objectif est de faciliter l'inclusion linguistique par un apprentissage pratique et accessible",
+      "image": "/images/projects/YOVO GBE.jpg",
+      "category": [
+        "UI/UX Design",
+        "Développement Mobile"
+      ],
+      "tech": [
+        "Figma",
+        "React Native",
+        "MySQL"
+      ],
+      "year": "2025",
+      "figmaLink": "https://figma.com/yovo-gbe",
+      "githubLink": "https://github.com/auriol-lissan/yovo-gbe",
+      "createdAt": "2025-01-01T00:00:00.000Z",
+      "updatedAt": "2025-08-02T08:20:45.331Z"
+    },
+    {
+      "title": "Climate Insight",
+      "description": "Plateforme web d’agrégation, d’analyse et de visualisation en temps réel des données climatiques provenant de sources fiables au Bénin.",
+      "longDescription": "Climate Insight est une plateforme web innovante qui centralise les données climatiques issues de sources fiables au Bénin. Elle permet une analyse approfondie et une visualisation claire des indicateurs environnementaux comme la température, les précipitations ou l’humidité. L’objectif est de fournir aux chercheurs, agriculteurs, décideurs et citoyens des informations précises pour une meilleure adaptation aux enjeux climatiques.",
+      "category": [
+        "UI/UX Design",
+        "Développement Web"
+      ],
+      "tech": [
+        "React",
+        "Express.js",
+        "MySQL",
+        "Tailwind CSS",
+        "TypeScript",
+        "PostgreSQL"
+      ],
+      "year": "2025",
+      "figmaLink": "https://none.com",
+      "githubLink": "https://none.com",
+      "image": "/images/projects/1754122177939_Climate_Insignt.jpg",
+      "id": "97a796a9-5cbf-4d45-902c-b2f280cb2132",
+      "createdAt": "2025-08-02T08:10:30.615Z",
+      "updatedAt": "2025-08-02T08:10:30.615Z"
+    },
+    {
+      "title": "Recrutement INSTI",
+      "description": "Plateforme web dédiée au recrutement des enseignants à l’Institut National Supérieur de Technologie Industrielle de Lokossa.",
+      "longDescription": "INSTI Recrutement Enseignant est une plateforme en ligne conçue pour simplifier et moderniser le processus de recrutement du personnel enseignant à l’INSTI. Elle permet la publication d’avis de recrutement, la réception et la gestion des candidatures, ainsi que le suivi des différentes étapes du processus de sélection. Grâce à son interface intuitive, elle offre une meilleure transparence et efficacité dans la gestion des dossiers, tout en facilitant la collaboration entre les services administratifs et les candidats.",
+      "category": [
+        "Développement Web",
+        "UI/UX Design"
+      ],
+      "tech": [
+        "Django",
+        "PostgreSQL",
+        "Figma"
+      ],
+      "year": "2025",
+      "figmaLink": "https://none.com",
+      "githubLink": "https://none.com",
+      "image": "/images/projects/1754122496252_Recrutement_Insti.jpg",
+      "id": "d29bf9eb-5f11-4eba-87c7-d7fd69da6bef",
+      "createdAt": "2025-08-02T08:15:23.217Z",
+      "updatedAt": "2025-08-02T08:15:23.217Z"
+    },
+    {
+      "title": "Projet complet",
+      "description": "Création graphique - Projet complet",
+      "longDescription": "Création graphique réalisée en 2024. Outils utilisés: Canva.",
+      "category": [
+        "Branding"
+      ],
+      "tech": [
+        "Canva"
+      ],
+      "year": "2024",
+      "figmaLink": "",
+      "githubLink": "",
+      "image": "/images/projects/1754129535765_Correction_Juste.jpg",
+      "images": [
+        "/images/projects/1754129535765_Correction_Juste.jpg",
+        "/images/projects/1754129535811_Correction.png"
+      ],
+      "companyName": "Correction Juste",
+      "id": "04d73425-04fb-4193-a670-5fae3e2db47c",
+      "createdAt": "2025-08-02T10:12:19.451Z",
+      "updatedAt": "2025-08-02T10:12:19.451Z"
+    },
+    {
+      "title": "Identité Visuelle",
+      "description": "Création graphique - Identité Visuelle",
+      "longDescription": "Création graphique réalisée en 2022. Outils utilisés: Canva.",
+      "category": [
+        "Branding",
+        "Création Graphique"
+      ],
+      "tech": [
+        "Canva"
+      ],
+      "year": "2022",
+      "figmaLink": "",
+      "githubLink": "",
+      "image": "/images/projects/1754129759445_IMG-20240105-WA0067.jpg",
+      "images": [
+        "/images/projects/1754129759445_IMG-20240105-WA0067.jpg",
+        "/images/projects/1754129843846_2.jpg",
+        "/images/projects/1754129843878_un.jpg",
+        "/images/projects/1754129857941_clarifiant__2_.jpg",
+        "/images/projects/1754129858011_Eclaircissant.jpg",
+        "/images/projects/1754129858103_savon_hyper__claircissant.jpg",
+        "/images/projects/1754129902297__Joy_Eclat_SARL_BONNE_ANNE_VF.jpg",
+        "/images/projects/1754129902467_Formation_Joy_Eclat___MESS_VF.jpg",
+        "/images/projects/1754129902532_Formation_Joy_Eclat.jpg",
+        "/images/projects/1754129902573_Joy_Eclat_by_New_Year.jpg",
+        "/images/projects/1754129920859_1.jpg",
+        "/images/projects/1754129920965_6.jpg"
+      ],
+      "companyName": "Joys Eclat",
+      "id": "67f60515-512c-4e29-ad79-af67054d3489",
+      "createdAt": "2025-08-02T10:19:04.670Z",
+      "updatedAt": "2025-08-02T10:19:04.670Z"
+    },
+    {
+      "title": "Logo, Cachet",
+      "description": "Création graphique - Logo, Cachet",
+      "longDescription": "Création graphique réalisée en 2025. Outils utilisés: Canva.",
+      "category": [
+        "Branding"
+      ],
+      "tech": [
+        "Canva"
+      ],
+      "year": "2025",
+      "figmaLink": "",
+      "githubLink": "",
+      "image": "/images/projects/1754130388449_1.jpg",
+      "images": [
+        "/images/projects/1754130388449_1.jpg",
+        "/images/projects/1754130388484_2.jpg",
+        "/images/projects/1754130388676_3.jpg",
+        "/images/projects/1754130388711_4.jpg",
+        "/images/projects/1754130414961_cachet_Blue_DEDM.jpg",
+        "/images/projects/1754130415127_cachet_DEDM.jpg",
+        "/images/projects/1754130415164_TRADING_ACADEMY.png"
+      ],
+      "companyName": "DEDM TRADE",
+      "id": "a4626a4b-e1b5-4a7a-bb9b-892cd2fbfee3",
+      "createdAt": "2025-08-02T10:27:46.755Z",
+      "updatedAt": "2025-08-02T10:27:46.755Z"
+    },
+    {
+      "title": "Étiquettes",
+      "description": "Création graphique - Étiquettes",
+      "longDescription": "Création graphique réalisée en 2025. Outils utilisés: Canva.",
+      "category": [
+        "Branding"
+      ],
+      "tech": [
+        "Canva"
+      ],
+      "year": "2025",
+      "figmaLink": "",
+      "githubLink": "",
+      "image": "/images/projects/1754130583564_1.jpg",
+      "images": [
+        "/images/projects/1754130583564_1.jpg",
+        "/images/projects/1754130583604_2.jpg",
+        "/images/projects/1754130603193_1.jpg",
+        "/images/projects/1754130603246_2.jpg",
+        "/images/projects/1754130639563_1.jpg",
+        "/images/projects/1754130639598_2.jpg"
+      ],
+      "companyName": "Cosmétique",
+      "id": "6d04b204-1224-402b-aca5-05109daab491",
+      "createdAt": "2025-08-02T10:35:38.346Z",
+      "updatedAt": "2025-08-02T10:37:35.203Z"
+    },
+    {
+      "title": "Affiche ",
+      "description": "Création graphique - Affiche ",
+      "longDescription": "Création graphique réalisée en 2022. Outils utilisés: Canva.",
+      "category": [
+        "Création Graphique"
+      ],
+      "tech": [
+        "Canva"
+      ],
+      "year": "2022",
+      "figmaLink": "",
+      "githubLink": "",
+      "image": "/images/projects/1754131084862_Affiche_publicitaire_JuCa.jpg",
+      "images": [
+        "/images/projects/1754131084862_Affiche_publicitaire_JuCa.jpg"
+      ],
+      "companyName": "JuCa",
+      "id": "6fc0d8c7-1d49-40c6-9a00-018a7d9ebbfb",
+      "createdAt": "2025-08-02T10:39:06.206Z",
+      "updatedAt": "2025-08-02T10:39:06.206Z"
+    },
+    {
+      "title": "Logo",
+      "description": "Création graphique - Logo",
+      "longDescription": "Création graphique réalisée en 2025. Outils utilisés: Canva.",
+      "category": [
+        "Création Graphique"
+      ],
+      "tech": [
+        "Canva"
+      ],
+      "year": "2025",
+      "figmaLink": "",
+      "githubLink": "",
+      "image": "/images/projects/1754131179760_INSITI_Weather.png",
+      "images": [
+        "/images/projects/1754131179760_INSITI_Weather.png"
+      ],
+      "companyName": "INSTI",
+      "id": "177b9def-8a56-4cd0-941e-50282bcef4aa",
+      "createdAt": "2025-08-02T10:39:58.726Z",
+      "updatedAt": "2025-08-02T10:39:58.726Z"
+    },
+    {
+      "title": "Logo",
+      "description": "Création graphique - Logo",
+      "longDescription": "Création graphique réalisée en 2025. Outils utilisés: Canva.",
+      "category": [
+        "Création Graphique"
+      ],
+      "tech": [
+        "Canva"
+      ],
+      "year": "2025",
+      "figmaLink": "",
+      "githubLink": "",
+      "image": "/images/projects/1754131262276_Logo_App_Menstruation.gif",
+      "images": [
+        "/images/projects/1754131262276_Logo_App_Menstruation.gif"
+      ],
+      "companyName": "APP de Menstrues ",
+      "id": "3d3bea6e-68cc-45a9-8022-22ae387c67ed",
+      "createdAt": "2025-08-02T10:41:35.664Z",
+      "updatedAt": "2025-08-02T10:41:35.664Z"
+    },
+    {
+      "title": "Affiche",
+      "description": "Création graphique - Affiche",
+      "longDescription": "Création graphique réalisée en 2025. Outils utilisés: Canva.",
+      "category": [
+        "Branding"
+      ],
+      "tech": [
+        "Canva"
+      ],
+      "year": "2025",
+      "figmaLink": "",
+      "githubLink": "",
+      "image": "/images/projects/1754131392674_9.jpg",
+      "images": [
+        "/images/projects/1754131392674_9.jpg",
+        "/images/projects/1754131392816_10.jpg",
+        "/images/projects/1754131404303_Affiche_Tabaski_Feunstim.jpg"
+      ],
+      "companyName": "FEUNSTIM",
+      "id": "de8cc21b-25cd-4b2b-abb9-e8e1ffe02cc8",
+      "createdAt": "2025-08-02T10:44:03.017Z",
+      "updatedAt": "2025-08-02T10:44:03.017Z"
+    }
+  ],
+  "awards": [
+    {
+      "id": "gaiathon-25",
+      "title": "2ème Place",
+      "event": "GAIATHON 25",
+      "description": "Climate Insight : Plateforme web d'agrégation, d'analyse et de visualisation en temps réel des données climatiques provenant de sources fiables au Bénin.",
+      "date": "Juillet 2025",
+      "location": "Abomey Calavi, Bénin",
+      "image": "/images/awards/GAIATHON.jpg",
+      "certificate": "/images/certificates/WhatsApp Image 2025-08-01 à 21.13.43_d5dfd8f4.jpg",
+      "icon": "ri-trophy-line",
+      "gradient": "from-yellow-400 to-orange-400",
+      "borderColor": "border-yellow-200",
+      "bgColor": "bg-yellow-50",
+      "createdAt": "2025-07-01T00:00:00.000Z",
+      "updatedAt": "2025-08-01T23:18:40.470Z"
+    },
+    {
+      "id": "auf-hackathon-2025",
+      "title": "2ème Place",
+      "event": "AUF Hackathon 2025",
+      "description": "YÓVÒ GBÈ : Application Mobile d'apprentissage linguistique du français à partir du fongbe immersive intégrant des éléments culturels africains avec une approche pédagogique moderne.",
+      "date": "Avril 2025",
+      "location": "Abomey Calavi, Bénin",
+      "image": "/images/awards/AUF PRIX.jpg",
+      "certificate": "/images/certificates/certificat-auf-hackathon-2025.svg",
+      "icon": "ri-trophy-line",
+      "gradient": "from-yellow-400 to-orange-400",
+      "borderColor": "border-yellow-200",
+      "bgColor": "bg-yellow-50",
+      "createdAt": "2025-04-01T00:00:00.000Z",
+      "updatedAt": "2025-08-01T23:18:13.369Z"
+    },
+    {
+      "title": "1ère Place ",
+      "event": "MIABE HACKATHON",
+      "description": "Bèmi : Application mobile qui aide à bien trier tous les types de déchets grâce à l’intelligence artificielle et au QR code.Et à chaque bon geste, tu gagnes des cadeaux, qu’on appelle les “kwètché”.",
+      "date": "Avril 2025",
+      "location": "Abomey Calavi, Bénin",
+      "image": "/images/awards/1754085688193_CERTIFICAT_MBH_25_LISSAN_Noukpo_A._Juliano_Uriel.jpg",
+      "certificate": "/images/certificates/1754085697251_CERTIFICAT_MBH_25_LISSAN_Noukpo_A._Juliano_Uriel.jpg",
+      "icon": "ri-award-line",
+      "gradient": "from-yellow-400 to-orange-400",
+      "borderColor": "border-yellow-200",
+      "bgColor": "bg-yellow-50",
+      "id": "c1c9a416-20f1-4335-84d9-d222d96783a5",
+      "createdAt": "2025-08-01T22:09:21.084Z",
+      "updatedAt": "2025-08-01T23:19:00.033Z"
+    }
+  ],
+  "lastUpdated": "2025-08-02T10:44:03.017Z"
+}

@@ -1,0 +1,41 @@
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFD700;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#FFA500;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FF8C00;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="baseGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8B4513;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#A0522D;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="400" height="300" fill="#f8fafc"/>
+  
+  <!-- Trophy base -->
+  <rect x="150" y="220" width="100" height="60" fill="url(#baseGradient)" rx="5"/>
+  
+  <!-- Trophy stem -->
+  <rect x="185" y="180" width="30" height="40" fill="url(#baseGradient)"/>
+  
+  <!-- Trophy cup -->
+  <ellipse cx="200" cy="120" rx="60" ry="40" fill="url(#goldGradient)"/>
+  <ellipse cx="200" cy="110" rx="55" ry="35" fill="none" stroke="#FFD700" stroke-width="3"/>
+  
+  <!-- Trophy handles -->
+  <ellipse cx="140" cy="120" rx="15" ry="25" fill="none" stroke="url(#goldGradient)" stroke-width="8"/>
+  <ellipse cx="260" cy="120" rx="15" ry="25" fill="none" stroke="url(#goldGradient)" stroke-width="8"/>
+  
+  <!-- Shine effect -->
+  <ellipse cx="180" cy="100" rx="20" ry="15" fill="#FFFF99" opacity="0.6"/>
+  
+  <!-- Text -->
+  <text x="200" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#1f2937">HACKATHON</text>
+  <text x="200" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#6b7280">1ère Place</text>
+  
+  <!-- Stars -->
+  <polygon points="100,40 105,50 115,50 107,57 110,67 100,60 90,67 93,57 85,50 95,50" fill="#FFD700"/>
+  <polygon points="300,40 305,50 315,50 307,57 310,67 300,60 290,67 293,57 285,50 295,50" fill="#FFD700"/>
+</svg>
