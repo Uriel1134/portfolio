@@ -166,18 +166,7 @@ export default function AdminAwards() {
                         Certificat
                       </span>
                     )}
-                    {award.figmaLink && (
-                      <span className="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-xs font-medium flex items-center gap-1">
-                        <i className="ri-palette-line"></i>
-                        Figma
-                      </span>
-                    )}
-                    {award.githubLink && (
-                      <span className="px-3 py-1 bg-gray-100 text-gray-800 rounded-full text-xs font-medium flex items-center gap-1">
-                        <i className="ri-github-line"></i>
-                        GitHub
-                      </span>
-                    )}
+
                   </div>
 
                   {/* Actions */}
@@ -191,6 +180,7 @@ export default function AdminAwards() {
                         Modifier
                       </Link>
                       <button
+                        type="button"
                         onClick={() => setDeleteModal({ show: true, award })}
                         className="flex items-center gap-2 px-4 py-2 bg-red-50 text-red-700 rounded-lg hover:bg-red-100 transition-colors duration-200 text-sm font-medium"
                       >
@@ -226,12 +216,14 @@ export default function AdminAwards() {
               </p>
               <div className="flex items-center gap-4 justify-end">
                 <button
+                  type="button"
                   onClick={() => setDeleteModal({ show: false, award: null })}
                   className="px-6 py-3 text-gray-700 hover:text-gray-900 transition-colors duration-200 font-medium"
                 >
                   Annuler
                 </button>
                 <button
+                  type="button"
                   onClick={() => handleDelete(deleteModal.award!)}
                   className="px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors duration-200 font-medium"
                 >
