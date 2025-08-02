@@ -154,15 +154,15 @@ export default function HeroSection() {
         </div>
 
         {/* Indicateur de défilement avec couleur */}
-        // <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce [animation-duration:2s]">
-        //   <div className="flex items-center gap-2 text-xs font-semibold tracking-wider text-blue-600 uppercase">
-        //     <span>Découvrir</span>
-        //   </div>
-        //   <div className="flex justify-center w-5 h-8 overflow-hidden border-2 border-blue-300 rounded-full">
-        //     <div className="w-0.5 h-2 bg-gradient-to-b from-blue-500 to-violet-500 rounded-full mt-1.5 animate-bounce [animation-duration:1.5s]"></div>
-        //   </div>
-        // </div>
-      </div>
+        {/* <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce [animation-duration:2s]">
+          <div className="flex items-center gap-2 text-xs font-semibold tracking-wider text-blue-600 uppercase">
+            <span>Découvrir</span>
+          </div>
+          <div className="flex justify-center w-5 h-8 overflow-hidden border-2 border-blue-300 rounded-full">
+            <div className="w-0.5 h-2 bg-gradient-to-b from-blue-500 to-violet-500 rounded-full mt-1.5 animate-bounce [animation-duration:1.5s]"></div>
+          </div>
+        </div>
+      </div> */}
     </section>
   );
 }
