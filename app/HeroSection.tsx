@@ -161,8 +161,8 @@ export default function HeroSection() {
           <div className="flex justify-center w-5 h-8 overflow-hidden border-2 border-blue-300 rounded-full">
             <div className="w-0.5 h-2 bg-gradient-to-b from-blue-500 to-violet-500 rounded-full mt-1.5 animate-bounce [animation-duration:1.5s]"></div>
           </div>
-        </div>
-      </div> */}
+        </div> */}
+      </div>
     </section>
   );
 }
