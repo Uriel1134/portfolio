@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 export default function HeroSection() {
   return (
-    <section className="relative min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50/30 overflow-hidden">
+    <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-gray-50 via-white to-blue-50/30">
       {/* Arrière-plan avec couleurs plus vives */}
       <div className="absolute inset-0" aria-hidden="true">
         <div className="absolute top-20 -left-40 w-80 h-80 bg-gradient-to-r from-blue-200/40 to-violet-200/40 rounded-full blur-3xl animate-pulse [animation-duration:4s]"></div>
@@ -16,10 +16,10 @@ export default function HeroSection() {
         <div className="absolute inset-0 bg-[linear-gradient(rgba(59,130,246,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.03)_1px,transparent_1px)] bg-[size:80px_80px] opacity-60"></div>
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-12 pt-20 lg:pt-32">
+      <div className="relative px-6 pt-20 mx-auto max-w-7xl lg:px-12 lg:pt-32">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center min-h-[calc(100vh-8rem)]">
           
-          <div className="lg:col-span-7 text-left space-y-8 lg:space-y-12">
+          <div className="space-y-8 text-left lg:col-span-7 lg:space-y-12">
             
             {/* Badge status avec couleur vibrante */}
             {/* <div className="inline-flex items-center px-4 py-2.5 bg-white/90 backdrop-blur-sm border border-blue-200/60 rounded-full shadow-lg hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-300 group">
@@ -28,7 +28,7 @@ export default function HeroSection() {
                   <div className="w-2.5 h-2.5 bg-gradient-to-r from-emerald-400 to-green-500 rounded-full"></div>
                   <div className="absolute inset-0 w-2.5 h-2.5 bg-gradient-to-r from-emerald-400 to-green-500 rounded-full animate-ping"></div>
                 </div>
-                <span className="text-gray-800 font-semibold text-sm">Disponible pour collaborer</span>
+                <span className="text-sm font-semibold text-gray-800">Disponible pour collaborer</span>
               </div>
             </div> */}
 
@@ -36,21 +36,21 @@ export default function HeroSection() {
             <div className="space-y-6">
               <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black leading-[0.9] tracking-tight">
                 <span className="block text-gray-900">Design &</span>
-                <span className="block bg-gradient-to-r from-blue-600 via-violet-600 to-purple-600 bg-clip-text text-transparent">
+                <span className="block text-transparent bg-gradient-to-r from-blue-600 via-violet-600 to-purple-600 bg-clip-text">
                   Innovation
                 </span>
               </h1>
               
-              <div className="flex flex-col sm:flex-row sm:items-center gap-4">
-                <div className="h-1 w-12 bg-gradient-to-r from-blue-500 to-violet-500 rounded-full"></div>
-                <p className="text-lg lg:text-xl text-gray-600 font-medium">Créateur d'expériences digitales</p>
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
+                <div className="w-12 h-1 rounded-full bg-gradient-to-r from-blue-500 to-violet-500"></div>
+                <p className="text-lg font-medium text-gray-600 lg:text-xl">Créateur d'expériences digitales</p>
               </div>
             </div>
 
-            <p className="text-lg lg:text-xl text-gray-600 leading-relaxed max-w-2xl font-light">
+            <p className="max-w-2xl text-lg font-light leading-relaxed text-gray-600 lg:text-xl">
               Je transforme vos idées en réalités digitales exceptionnelles. 
-              <span className="font-semibold bg-gradient-to-r from-blue-600 to-violet-600 bg-clip-text text-transparent"> Passionné par l'innovation</span> et 
-              <span className="font-semibold bg-gradient-to-r from-violet-600 to-purple-600 bg-clip-text text-transparent"> centré sur l'expérience utilisateur</span>.
+              <span className="font-semibold text-transparent bg-gradient-to-r from-blue-600 to-violet-600 bg-clip-text"> Passionné par l'innovation</span> et 
+              <span className="font-semibold text-transparent bg-gradient-to-r from-violet-600 to-purple-600 bg-clip-text"> centré sur l'expérience utilisateur</span>.
             </p>
 
             {/* Compétences avec design épuré */}
@@ -75,42 +75,42 @@ export default function HeroSection() {
             </div>
 
             {/* Boutons CTA avec couleurs attractives */}
-            <div className="flex flex-col sm:flex-row gap-4 pt-6">
+            <div className="flex flex-col gap-4 pt-6 sm:flex-row">
               <Link 
                 href="/projects" 
                 className="group inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-blue-600 to-violet-600 text-white font-bold rounded-xl hover:from-blue-700 hover:to-violet-700 hover:shadow-xl hover:shadow-blue-500/25 transition-all duration-300 whitespace-nowrap transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
               >
                 <span>Découvrir mes créations</span>
-                <i className="ri-arrow-right-line ml-3 group-hover:translate-x-1 transition-transform duration-300" aria-hidden="true"></i>
+                <i className="ml-3 transition-transform duration-300 ri-arrow-right-line group-hover:translate-x-1" aria-hidden="true"></i>
               </Link>
               <Link 
                 href="/contact" 
                 className="group inline-flex items-center justify-center px-8 py-4 bg-white/90 backdrop-blur-sm border-2 border-violet-300 text-violet-700 font-bold rounded-xl hover:bg-violet-50 hover:border-violet-400 hover:shadow-lg hover:shadow-violet-500/10 transition-all duration-300 whitespace-nowrap transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2"
               >
-                <i className="ri-chat-3-line mr-3 group-hover:scale-110 transition-transform duration-300" aria-hidden="true"></i>
+                <i className="mr-3 transition-transform duration-300 ri-chat-3-line group-hover:scale-110" aria-hidden="true"></i>
                 <span>Démarrons un projet</span>
               </Link>
             </div>
 
             {/* Statistiques avec accents colorés */}
-            <div className="flex items-center gap-6 lg:gap-8 pt-4">
+            <div className="flex items-center gap-6 pt-4 lg:gap-8">
               {[
                 { number: '50+', label: 'Projets réalisés', color: 'text-blue-600' },
                 { number: '3+', label: 'Années d\'expérience', color: 'text-violet-600' },
                 { number: '100%', label: 'Satisfaction client', color: 'text-purple-600' }
               ].map(({ number, label, color }, index) => (
-                <div key={label} className="text-center relative">
+                <div key={label} className="relative text-center">
                   <div className={`text-xl lg:text-2xl font-black ${color}`}>{number}</div>
-                  <div className="text-xs lg:text-sm text-gray-600 font-medium mb-10">{label}</div>
-                  {index < 2 && <div className="hidden sm:block absolute w-px h-8 bg-gradient-to-b from-blue-300 to-violet-300 ml-6 lg:ml-8 -mt-6"></div>}
+                  <div className="mb-10 text-xs font-medium text-gray-600 lg:text-sm">{label}</div>
+                  {index < 2 && <div className="absolute hidden w-px h-8 ml-6 -mt-6 sm:block bg-gradient-to-b from-blue-300 to-violet-300 lg:ml-8"></div>}
                 </div>
               ))}
             </div>
           </div>
 
           {/* Photo de profil avec effets colorés */}
-          <div className="lg:col-span-5 relative order-first lg:order-last">
-            <div className="relative max-w-md lg:max-w-lg mx-auto">
+          <div className="relative order-first lg:col-span-5 lg:order-last">
+            <div className="relative max-w-md mx-auto lg:max-w-lg">
               
               {/* Effets d'arrière-plan colorés */}
               <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 lg:w-96 h-80 lg:h-96 bg-gradient-to-br from-blue-200/30 via-violet-200/40 to-purple-200/30 rounded-full -z-10 blur-3xl animate-pulse [animation-duration:5s]"></div>
@@ -121,25 +121,25 @@ export default function HeroSection() {
                     src="/images/hero/profile-photo.png"
                     alt="Auriol Uriel Lissan - Designer & Développeur"
                     fill
-                    className="object-contain object-bottom filter drop-shadow-2xl hover:drop-shadow-3xl transition-all duration-500 transform hover:scale-105"
+                    className="object-contain object-bottom transition-all duration-500 transform filter drop-shadow-2xl hover:drop-shadow-3xl hover:scale-105"
                     priority
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
                   />
                   
-                  <div className="absolute inset-0 bg-gradient-to-t from-blue-50/5 via-transparent to-transparent pointer-events-none"></div>
+                  <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-blue-50/5 via-transparent to-transparent"></div>
                 </div>
               </div>
 
               {/* Badge nom avec gradient */}
-              <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 z-10">
+              <div className="absolute z-10 transform -translate-x-1/2 -bottom-6 left-1/2">
                 <div className="bg-white/95 backdrop-blur-lg px-6 py-3 rounded-2xl shadow-xl border border-blue-200/60 hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-300 hover:-translate-y-1 w-[270px] sm:w-[320px] md:w-[370px]">
                   <div className="flex items-center space-x-3">
                     <div className="relative">
-                      <div className="w-3 h-3 bg-gradient-to-r from-emerald-400 to-green-500 rounded-full"></div>
-                      <div className="absolute inset-0 w-3 h-3 bg-gradient-to-r from-emerald-400 to-green-500 rounded-full animate-ping"></div>
+                      <div className="w-3 h-3 rounded-full bg-gradient-to-r from-emerald-400 to-green-500"></div>
+                      <div className="absolute inset-0 w-3 h-3 rounded-full bg-gradient-to-r from-emerald-400 to-green-500 animate-ping"></div>
                     </div>
                     <div className="text-center">
-                      <div className="text-gray-900 font-black text-base lg:text-lg">Noukpo Auriol Juliano U. LISSAN</div>
+                      <div className="text-base font-black text-gray-900 lg:text-lg">Noukpo Auriol Juliano U. LISSAN</div>
                       <div className="bg-gradient-to-r from-blue-600 to-violet-600 bg-clip-text text-transparent text-sm font-medium -mt-0.5">Creative Developer</div>
                     </div>
                   </div>
@@ -154,14 +154,14 @@ export default function HeroSection() {
         </div>
 
         {/* Indicateur de défilement avec couleur */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce [animation-duration:2s]">
-          <div className="flex items-center gap-2 text-blue-600 text-xs font-semibold tracking-wider uppercase">
-            <span>Découvrir</span>
-          </div>
-          <div className="w-5 h-8 border-2 border-blue-300 rounded-full flex justify-center overflow-hidden">
-            <div className="w-0.5 h-2 bg-gradient-to-b from-blue-500 to-violet-500 rounded-full mt-1.5 animate-bounce [animation-duration:1.5s]"></div>
-          </div>
-        </div>
+        // <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce [animation-duration:2s]">
+        //   <div className="flex items-center gap-2 text-xs font-semibold tracking-wider text-blue-600 uppercase">
+        //     <span>Découvrir</span>
+        //   </div>
+        //   <div className="flex justify-center w-5 h-8 overflow-hidden border-2 border-blue-300 rounded-full">
+        //     <div className="w-0.5 h-2 bg-gradient-to-b from-blue-500 to-violet-500 rounded-full mt-1.5 animate-bounce [animation-duration:1.5s]"></div>
+        //   </div>
+        // </div>
       </div>
     </section>
   );
