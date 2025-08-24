@@ -24,8 +24,8 @@ const projects = [
     category: ["UI/UX Design", "Developpement Mobile"],
     tech: ["Figma", "Flutter" , "SQLite"],
     year: "2025",
-    figmaLink: "https://figma.com/ptccare-mobile",
-    githubLink: "https://github.com/auriol-lissan/ptccare-mobile"
+    figmaLink: "https://www.figma.com/design/jzuKJ4QW621XoTrUaKak2L/Untitled?node-id=0-1&t=b2e3jkVzikw7kkfr-1",
+    githubLink: "https://github.com/Uriel1134/ptccare_mobile"
   },
   {
     title: "INSTI METEO",
@@ -35,8 +35,8 @@ const projects = [
     category: ["UI/UX Design", "Developpement Mobile"],
     tech: ["Figma", "Flutter" , "Firebase"],
     year: "2025",
-    figmaLink: "https://figma.com/insti-meteo",
-    githubLink: "https://github.com/auriol-lissan/insti-meteo"
+    figmaLink: "https://www.figma.com/design/ei17roWQZpZIgHpt7iwbjC/Untitled?node-id=240-139&t=yMXDYzrbkpW3Hkh6-1",
+    githubLink: "https://github.com/Uriel1134/INSTI-METEO"
   },
   {
     title: "Bèmi",
@@ -46,8 +46,8 @@ const projects = [
     category: ["UI/UX Design", "Developpement Mobile"],
     tech: ["Figma", "Flutter" , "Laravel", "MySql"],
     year: "2025",
-    figmaLink: "https://figma.com/bemi-app",
-    githubLink: "https://github.com/auriol-lissan/bemi-app"
+    figmaLink: "https://www.figma.com/design/l7BtDDTC8BzmQvajo2AODG/B%C3%A8mi_APP?node-id=3-191&t=XuM9KKLqd1T7fvXj-1",
+    githubLink: "https://github.com/Uriel1134/B-mi_app"
   },
   {
     title: "YÓVÒ GBÈ",
@@ -57,8 +57,8 @@ const projects = [
     category: ["UI/UX Design", "Développement Web"],
     tech: ["Figma", "Reacte Native" , "MySql"],
     year: "2025",
-    figmaLink: "https://figma.com/yovo-gbe",
-    githubLink: "https://github.com/auriol-lissan/yovo-gbe"
+    figmaLink: "https://www.figma.com/design/QOouqiypG7gpfDRCfxk3Nv/YOVO-GBE?node-id=0-1&t=mRGoF5WArPekyPTH-1",
+    githubLink: "https://github.com/Uriel1134/yovogbe"
   },
   {
     title: "Climate Insight",
@@ -68,8 +68,8 @@ const projects = [
     category: ["UI/UX Design", "Developpement web"],
     tech: ["Figma", "Reacte Js" , "Leaflet", "Chart.js", "PostgreSQL"],
     year: "2025",
-    figmaLink: "https://figma.com/climate-insight",
-    githubLink: "https://github.com/auriol-lissan/climate-insight"
+    figmaLink: "https://www.figma.com/design/1eYpWc1gk3bX4mJH3v1u0g/Climate-Insight?node-id=0-1&t=G9NyQQBni4MHfLeu-1",
+    githubLink: "https://github.com/Uriel1134/ClimateInsight"
   },
   {
     title: "Recrutement INSTI",
@@ -79,8 +79,8 @@ const projects = [
     category: ["UI/UX Design", "Developpement web"],
     tech: ["Figma", "DJANGO", "PostgreSQL"],
     year: "2025",
-    figmaLink: "https://figma.com/recrutement-insti",
-    githubLink: "https://github.com/auriol-lissan/recrutement-insti"
+    figmaLink: "https://www.figma.com/design/l2AjGCNbiFnbMOKYAYRvor/Recrutement-Enseignant-INSTI?node-id=0-1&t=G9NyQQBni4MHfLeu-1",
+    githubLink: "https://github.com/Uriel1134/huma"
   }
 ];
 
