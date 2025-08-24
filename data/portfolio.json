@@ -185,7 +185,7 @@
       "companyName": "Joys Eclat",
       "id": "67f60515-512c-4e29-ad79-af67054d3489",
       "createdAt": "2025-08-02T10:19:04.670Z",
-      "updatedAt": "2025-08-02T10:19:04.670Z"
+      "updatedAt": "2025-08-24T15:07:25.748Z"
     },
     {
       "title": "Logo, Cachet",
@@ -299,14 +299,15 @@
       "year": "2025",
       "figmaLink": "",
       "githubLink": "",
-      "image": "/images/projects/1754131262276_Logo_App_Menstruation.gif",
+      "image": "/images/projects/1756047961303_JL_BTP_design_Logo.png",
       "images": [
-        "/images/projects/1754131262276_Logo_App_Menstruation.gif"
+        "/images/projects/1756047961303_JL_BTP_design_Logo.png",
+        "/images/projects/1756048007541_a-sleek-futuristic-logo-design-for-softs_sKTTgzqMTGiVRgJ_YYKrOA_JabcA3hnRyCmfJaOHa38PA.jpeg.jpg"
       ],
       "companyName": "APP de Menstrues ",
       "id": "3d3bea6e-68cc-45a9-8022-22ae387c67ed",
       "createdAt": "2025-08-02T10:41:35.664Z",
-      "updatedAt": "2025-08-02T10:41:35.664Z"
+      "updatedAt": "2025-08-24T15:06:58.773Z"
     },
     {
       "title": "Affiche",
@@ -383,5 +384,5 @@
       "updatedAt": "2025-08-01T23:19:00.033Z"
     }
   ],
-  "lastUpdated": "2025-08-02T10:44:03.017Z"
+  "lastUpdated": "2025-08-24T15:07:25.748Z"
 }
