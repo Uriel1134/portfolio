@@ -9,102 +9,91 @@ export default function Header() {
   const { cv } = useCV();
 
   return (
-    <header className="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-xl border-b border-gray-200/50 z-50 shadow-sm">
+    <header className="fixed top-0 left-0 right-0 bg-black/95 backdrop-blur-xl border-b border-white/10 z-50">
       <nav className="px-6 lg:px-12 py-5">
         <div className="flex items-center justify-between max-w-7xl mx-auto">
-          {/* Logo redesigné avec dégradé coloré */}
+          {/* Logo */}
           <Link href="/" className="flex items-center gap-4 group admin-access">
-            <div className="relative">
-              <div className="w-12 h-12 flex items-center justify-center bg-gradient-to-br from-blue-600 via-violet-600 to-purple-600 rounded-2xl group-hover:shadow-lg group-hover:shadow-blue-500/25 transition-all duration-300 group-hover:scale-105">
-                <span className="text-white font-bold text-xl">AU</span>
-              </div>
-              <div className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-r from-emerald-400 to-green-500 rounded-full border-2 border-white shadow-sm animate-pulse"></div>
+            <div className="w-10 h-10 flex items-center justify-center bg-[#C9A84C] rounded-xl group-hover:bg-[#b8973d] transition-all duration-300">
+              <span className="text-black font-bold text-sm">AU</span>
             </div>
             <div className="hidden sm:block">
-              <div className="font-bold text-gray-900 text-xl tracking-tight group-hover:text-blue-700 transition-colors duration-300">Auriol Uriel</div>
-              <div className="text-sm text-gray-500 -mt-1">Creative Developer</div>
+              <div className="font-bold text-white text-base tracking-tight">Auriol Uriel</div>
+              <div className="text-xs text-gray-500 -mt-0.5">Creative Developer</div>
             </div>
           </Link>
-          
-          {/* Navigation moderne avec effets colorés */}
-          <div className="hidden lg:flex items-center bg-gray-50/80 rounded-2xl p-2">
-            <Link href="/" className="px-6 py-2.5 text-gray-700 hover:text-blue-700 hover:bg-blue-50/80 rounded-xl transition-all duration-300 whitespace-nowrap cursor-pointer font-medium text-sm relative group">
-              Accueil
-              <div className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-violet-500 group-hover:w-8 group-hover:left-1/2 group-hover:-translate-x-1/2 transition-all duration-300 rounded-full"></div>
-            </Link>
-            <Link href="/about" className="px-6 py-2.5 text-gray-700 hover:text-blue-700 hover:bg-blue-50/80 rounded-xl transition-all duration-300 whitespace-nowrap cursor-pointer font-medium text-sm relative group">
-              À propos
-              <div className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-violet-500 group-hover:w-8 group-hover:left-1/2 group-hover:-translate-x-1/2 transition-all duration-300 rounded-full"></div>
-            </Link>
-            <Link href="/projects" className="px-6 py-2.5 text-gray-700 hover:text-blue-700 hover:bg-blue-50/80 rounded-xl transition-all duration-300 whitespace-nowrap cursor-pointer font-medium text-sm relative group">
-              Projets
-              <div className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-violet-500 group-hover:w-8 group-hover:left-1/2 group-hover:-translate-x-1/2 transition-all duration-300 rounded-full"></div>
-            </Link>
-            <Link href="/services" className="px-6 py-2.5 text-gray-700 hover:text-blue-700 hover:bg-blue-50/80 rounded-xl transition-all duration-300 whitespace-nowrap cursor-pointer font-medium text-sm relative group">
-              Services
-              <div className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-violet-500 group-hover:w-8 group-hover:left-1/2 group-hover:-translate-x-1/2 transition-all duration-300 rounded-full"></div>
-            </Link>
+
+          {/* Navigation desktop */}
+          <div className="hidden lg:flex items-center gap-1">
+            {[
+              { label: 'Accueil', href: '/' },
+              { label: 'À propos', href: '/about' },
+              { label: 'Projets', href: '/projects' },
+              { label: 'Services', href: '/services' },
+            ].map(({ label, href }) => (
+              <Link
+                key={href}
+                href={href}
+                className="px-5 py-2 text-gray-400 hover:text-white rounded-lg transition-all duration-200 text-sm font-medium"
+              >
+                {label}
+              </Link>
+            ))}
           </div>
 
-          {/* Boutons CV et contact */}
+          {/* Boutons */}
           <div className="hidden md:flex items-center gap-3">
             {cv && (
               <a
                 href={cv.path}
                 download
-                className="px-6 py-3 bg-white border-2 border-violet-300 text-violet-700 rounded-2xl hover:bg-violet-50 hover:border-violet-400 hover:shadow-lg hover:shadow-violet-500/10 transition-all duration-300 whitespace-nowrap font-semibold text-sm flex items-center gap-2 transform hover:-translate-y-0.5"
+                className="px-5 py-2.5 bg-transparent border border-white/20 text-white rounded-lg hover:border-[#C9A84C]/60 hover:text-[#C9A84C] transition-all duration-200 text-sm font-medium flex items-center gap-2"
               >
                 <i className="ri-download-line"></i>
                 CV
               </a>
             )}
-            <Link href="/contact" className="px-8 py-3 bg-gradient-to-r from-blue-600 to-violet-600 text-white rounded-2xl hover:from-blue-700 hover:to-violet-700 hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 whitespace-nowrap cursor-pointer font-semibold text-sm flex items-center gap-2 transform hover:-translate-y-0.5">
+            <Link href="/contact" className="px-6 py-2.5 bg-[#C9A84C] text-black rounded-lg hover:bg-[#b8973d] transition-all duration-200 font-semibold text-sm flex items-center gap-2">
               Collaborons
-              <i className="ri-arrow-right-line group-hover:translate-x-1 transition-transform duration-300"></i>
+              <i className="ri-arrow-right-line"></i>
             </Link>
           </div>
 
-          {/* Menu mobile avec accent coloré */}
+          {/* Menu mobile */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="lg:hidden w-12 h-12 flex items-center justify-center hover:bg-blue-50 rounded-2xl transition-all duration-300 cursor-pointer group"
+            className="lg:hidden w-10 h-10 flex items-center justify-center border border-white/20 rounded-lg transition-all duration-200"
           >
             <div className="flex flex-col gap-1">
-              <div className={`w-5 h-0.5 bg-gray-700 group-hover:bg-blue-600 transition-all duration-300 ${isMenuOpen ? 'rotate-45 translate-y-1.5' : ''}`}></div>
-              <div className={`w-5 h-0.5 bg-gray-700 group-hover:bg-blue-600 transition-all duration-300 ${isMenuOpen ? 'opacity-0' : ''}`}></div>
-              <div className={`w-5 h-0.5 bg-gray-700 group-hover:bg-blue-600 transition-all duration-300 ${isMenuOpen ? '-rotate-45 -translate-y-1.5' : ''}`}></div>
+              <div className={`w-4 h-0.5 bg-white transition-all duration-300 ${isMenuOpen ? 'rotate-45 translate-y-1.5' : ''}`}></div>
+              <div className={`w-4 h-0.5 bg-white transition-all duration-300 ${isMenuOpen ? 'opacity-0' : ''}`}></div>
+              <div className={`w-4 h-0.5 bg-white transition-all duration-300 ${isMenuOpen ? '-rotate-45 -translate-y-1.5' : ''}`}></div>
             </div>
           </button>
         </div>
 
-        {/* Menu mobile avec couleurs */}
+        {/* Menu mobile panel */}
         {isMenuOpen && (
-          <div className="lg:hidden mt-6 p-6 bg-white/95 backdrop-blur-xl rounded-3xl border border-gray-200/50 mx-4 shadow-2xl">
-            <div className="flex flex-col gap-2">
-              <Link href="/" className="px-6 py-4 text-gray-700 hover:text-blue-700 hover:bg-blue-50 rounded-2xl transition-all duration-300 cursor-pointer font-medium">
-                Accueil
-              </Link>
-              <Link href="/about" className="px-6 py-4 text-gray-700 hover:text-blue-700 hover:bg-blue-50 rounded-2xl transition-all duration-300 cursor-pointer font-medium">
-                À propos
-              </Link>
-              <Link href="/projects" className="px-6 py-4 text-gray-700 hover:text-blue-700 hover:bg-blue-50 rounded-2xl transition-all duration-300 cursor-pointer font-medium">
-                Projets
-              </Link>
-              <Link href="/services" className="px-6 py-4 text-gray-700 hover:text-blue-700 hover:bg-blue-50 rounded-2xl transition-all duration-300 cursor-pointer font-medium">
-                Services
-              </Link>
-              <div className="mt-4 pt-4 border-t border-gray-200 space-y-3">
+          <div className="lg:hidden mt-4 p-5 bg-zinc-900 rounded-2xl border border-white/10 mx-2">
+            <div className="flex flex-col gap-1">
+              {[
+                { label: 'Accueil', href: '/' },
+                { label: 'À propos', href: '/about' },
+                { label: 'Projets', href: '/projects' },
+                { label: 'Services', href: '/services' },
+              ].map(({ label, href }) => (
+                <Link key={href} href={href} className="px-4 py-3 text-gray-300 hover:text-white hover:bg-white/5 rounded-xl transition-all duration-200 font-medium text-sm">
+                  {label}
+                </Link>
+              ))}
+              <div className="mt-3 pt-3 border-t border-white/10 space-y-2">
                 {cv && (
-                  <a
-                    href={cv.path}
-                    download
-                    className="flex items-center justify-center gap-2 px-6 py-4 bg-white border-2 border-violet-300 text-violet-700 rounded-2xl font-semibold hover:bg-violet-50 hover:border-violet-400 transition-all duration-300"
-                  >
+                  <a href={cv.path} download className="flex items-center justify-center gap-2 px-4 py-3 border border-white/20 text-white rounded-xl font-medium text-sm hover:border-[#C9A84C]/60 hover:text-[#C9A84C] transition-all duration-200">
                     <i className="ri-download-line"></i>
                     Télécharger CV
                   </a>
                 )}
-                <Link href="/contact" className="flex items-center justify-center gap-2 px-6 py-4 bg-gradient-to-r from-blue-600 to-violet-600 text-white rounded-2xl font-semibold cursor-pointer hover:from-blue-700 hover:to-violet-700 transition-all duration-300">
+                <Link href="/contact" className="flex items-center justify-center gap-2 px-4 py-3 bg-[#C9A84C] text-black rounded-xl font-semibold text-sm hover:bg-[#b8973d] transition-all duration-200">
                   Collaborons
                   <i className="ri-arrow-right-line"></i>
                 </Link>
@@ -116,4 +105,3 @@ export default function Header() {
     </header>
   );
 }
-

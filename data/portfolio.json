@@ -47,7 +47,7 @@
       "title": "Bèmi",
       "description": "Application mobile qui aide à bien trier tous les types de déchets grâce à l'intelligence artificielle et au QR code.Et à chaque bon geste, tu gagnes des cadeaux, qu'on appelle les \"kwètché\".",
       "longDescription": "BèmiApp est une application mobile intelligente qui facilite le tri des déchets grâce à la reconnaissance via QR code et à l'intelligence artificielle. Chaque tri correct permet de gagner des récompenses appelées \"kwètché\", encourageant ainsi les bons gestes écologiques. L'application allie technologie et écoresponsabilité pour promouvoir un environnement plus propre.",
-      "image": "/images/projects/Bèmi.png",
+      "image": "/images/projects/Bemi.png",
       "category": [
         "UI/UX Design",
         "Développement Mobile"
@@ -69,7 +69,7 @@
       "title": "YÓVÒ GBÈ",
       "description": "Application Mobile d'apprentissage linguistique du français à partir du fongbe immersive intégrant des éléments culturels africains avec une approche pédagogique moderne.",
       "longDescription": "YÓVÒ GBÈ est une application mobile d'apprentissage du français destinée aux artisans, commerçants et autres personnes parlant le fon. Elle utilise une approche intuitive basée sur l'écoute audio (voix off) et des illustrations visuelles. L'objectif est de faciliter l'inclusion linguistique par un apprentissage pratique et accessible",
-      "image": "/images/projects/YOVO GBE.jpg",
+      "image": "/images/projects/YOVO_GBE.jpg",
       "category": [
         "UI/UX Design",
         "Développement Mobile"
@@ -104,7 +104,7 @@
       "year": "2025",
       "figmaLink": "https://none.com",
       "githubLink": "https://none.com",
-      "image": "/images/projects/1754122177939_Climate_Insignt.jpg",
+      "image": "/images/projects/Climate_Insignt.jpg",
       "id": "97a796a9-5cbf-4d45-902c-b2f280cb2132",
       "createdAt": "2025-08-02T08:10:30.615Z",
       "updatedAt": "2025-08-02T08:10:30.615Z"
@@ -125,7 +125,7 @@
       "year": "2025",
       "figmaLink": "https://none.com",
       "githubLink": "https://none.com",
-      "image": "/images/projects/1754122496252_Recrutement_Insti.jpg",
+      "image": "/images/projects/Recrutement_Insti.jpg",
       "id": "d29bf9eb-5f11-4eba-87c7-d7fd69da6bef",
       "createdAt": "2025-08-02T08:15:23.217Z",
       "updatedAt": "2025-08-02T08:15:23.217Z"
@@ -343,7 +343,7 @@
       "date": "Juillet 2025",
       "location": "Abomey Calavi, Bénin",
       "image": "/images/awards/GAIATHON.jpg",
-      "certificate": "/images/certificates/WhatsApp Image 2025-08-01 à 21.13.43_d5dfd8f4.jpg",
+      "certificate": "/images/certificates/WhatsApp_Image_2.jpg",
       "icon": "ri-trophy-line",
       "gradient": "from-yellow-400 to-orange-400",
       "borderColor": "border-yellow-200",
@@ -358,7 +358,7 @@
       "description": "YÓVÒ GBÈ : Application Mobile d'apprentissage linguistique du français à partir du fongbe immersive intégrant des éléments culturels africains avec une approche pédagogique moderne.",
       "date": "Avril 2025",
       "location": "Abomey Calavi, Bénin",
-      "image": "/images/awards/AUF PRIX.jpg",
+      "image": "/images/awards/AUF_PRIX.jpg",
       "certificate": "/images/certificates/certificat-auf-hackathon-2025.svg",
       "icon": "ri-trophy-line",
       "gradient": "from-yellow-400 to-orange-400",
@@ -373,8 +373,8 @@
       "description": "Bèmi : Application mobile qui aide à bien trier tous les types de déchets grâce à l’intelligence artificielle et au QR code.Et à chaque bon geste, tu gagnes des cadeaux, qu’on appelle les “kwètché”.",
       "date": "Avril 2025",
       "location": "Abomey Calavi, Bénin",
-      "image": "/images/awards/1754085688193_CERTIFICAT_MBH_25_LISSAN_Noukpo_A._Juliano_Uriel.jpg",
-      "certificate": "/images/certificates/1754085697251_CERTIFICAT_MBH_25_LISSAN_Noukpo_A._Juliano_Uriel.jpg",
+      "image": "/images/awards/MIABE_HACKATHON.jpg",
+      "certificate": "/images/certificates/CERTIFICAT_MBH_25.jpg",
       "icon": "ri-award-line",
       "gradient": "from-yellow-400 to-orange-400",
       "borderColor": "border-yellow-200",

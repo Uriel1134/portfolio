@@ -50,47 +50,46 @@ const services = [
 
 export default function ServicesGrid() {
   return (
-    <section className="py-20 bg-white">
+    <section className="py-24 bg-zinc-950">
       <div className="max-w-6xl mx-auto px-6 lg:px-8">
-        <div className="space-y-16">
+        <div className="space-y-24">
           {services.map((service, index) => (
-            <div key={index} className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${
-              index % 2 === 1 ? 'lg:flex-row-reverse' : ''
-            }`}>
+            <div key={index} className={`grid grid-cols-1 lg:grid-cols-2 gap-16 items-center ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''
+              }`}>
               <div className={`${index % 2 === 1 ? 'lg:order-2' : ''}`}>
-                <div className={`w-16 h-16 flex items-center justify-center bg-${service.color}-600 text-white rounded-2xl mb-6`}>
+                <div className="w-14 h-14 flex items-center justify-center bg-[#C9A84C]/10 text-[#C9A84C] border border-[#C9A84C]/20 rounded-xl mb-6">
                   <i className={`${service.icon} text-2xl`}></i>
                 </div>
-                <h2 className="text-3xl font-bold text-gray-900 mb-4">
+                <h2 className="text-3xl font-bold text-white mb-4">
                   {service.title}
                 </h2>
-                <p className="text-xl text-gray-600 mb-8">
+                <p className="text-lg text-gray-400 mb-8 leading-relaxed">
                   {service.description}
                 </p>
-                
+
                 <div className="space-y-3 mb-8">
                   {service.features.map((feature, featureIndex) => (
                     <div key={featureIndex} className="flex items-center gap-3">
-                      <div className={`w-2 h-2 bg-${service.color}-600 rounded-full`}></div>
-                      <span className="text-gray-700">{feature}</span>
+                      <div className="w-1.5 h-1.5 bg-[#C9A84C] rounded-full"></div>
+                      <span className="text-gray-400 text-sm">{feature}</span>
                     </div>
                   ))}
                 </div>
-                
-                <button className={`inline-flex items-center px-6 py-3 bg-${service.color}-600 text-white font-semibold rounded-lg hover:bg-${service.color}-700 transition-colors whitespace-nowrap cursor-pointer`}>
+
+                <button className="inline-flex items-center px-6 py-3 bg-transparent border border-white/20 text-white font-semibold rounded-xl hover:border-[#C9A84C]/60 hover:text-[#C9A84C] transition-all duration-200 text-sm uppercase tracking-wider">
                   En savoir plus
-                  <i className="ri-arrow-right-line ml-2"></i>
+                  <i className="ri-arrow-right-line ml-3"></i>
                 </button>
               </div>
-              
+
               <div className={`${index % 2 === 1 ? 'lg:order-1' : ''}`}>
-                <div className="relative">
+                <div className="relative group">
+                  <div className="absolute -inset-1 bg-[#C9A84C]/20 rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
                   <img
                     src={service.image}
                     alt={service.title}
-                    className="w-full h-80 object-cover rounded-2xl shadow-2xl"
+                    className="relative w-full h-80 object-cover rounded-2xl border border-white/10"
                   />
-                  <div className={`absolute -bottom-6 -right-6 w-32 h-32 bg-gradient-to-br from-${service.color}-400 to-${service.color}-600 rounded-full opacity-20 blur-xl`}></div>
                 </div>
               </div>
             </div>
