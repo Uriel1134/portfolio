@@ -20,7 +20,7 @@
     "@types/nodemailer": "^6.4.17",
     "bcryptjs": "^3.0.2",
     "jsonwebtoken": "^9.0.2",
-    "next": "15.3.2",
+    "next": "^15.4.0",
     "next-auth": "^4.24.11",
     "nodemailer": "^6.10.1",
     "react": "^19.0.0",
