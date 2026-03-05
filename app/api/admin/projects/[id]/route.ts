@@ -80,7 +80,7 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
   } catch (error) {
     console.error(`Erreur API PUT /api/admin/projects/${id}:`, error);
     return NextResponse.json(
-      { error: `Erreur lors de la mise à jour du projet: ${error instanceof Error ? error.message : 'Erreur inconnue'}` },
+      { error: `DEBUG SUPABASE: Erreur lors de la mise à jour du projet: ${error instanceof Error ? error.message : 'Erreur inconnue'}` },
       { status: 500 }
     );
   }
