@@ -114,7 +114,7 @@ export async function createProject(
 export async function updateProject(
   id: string,
   projectData: Partial<Omit<Project, 'id' | 'createdAt'>>
-): Promise<Project | null> {
+): Promise<Project> {
   const update: Record<string, any> = { updated_at: new Date().toISOString() };
   if (projectData.title !== undefined) update.title = projectData.title;
   if (projectData.description !== undefined) update.description = projectData.description;
@@ -137,9 +137,11 @@ export async function updateProject(
 
   if (error) {
     console.error(`Erreur updateProject(${id}):`, error, update);
-    return null;
+    throw error;
   }
-  return mapProject(data);
+  const result = mapProject(data);
+  if (!result) throw new Error('Projet non trouvé après mise à jour');
+  return result;
 }
 
 export async function deleteProject(id: string): Promise<boolean> {
@@ -206,7 +208,7 @@ export async function createAward(
 export async function updateAward(
   id: string,
   awardData: Partial<Omit<Award, 'id' | 'createdAt'>>
-): Promise<Award | null> {
+): Promise<Award> {
   const update: Record<string, any> = { updated_at: new Date().toISOString() };
   if (awardData.title !== undefined) update.title = awardData.title;
   if (awardData.event !== undefined) update.event = awardData.event;
@@ -229,9 +231,11 @@ export async function updateAward(
 
   if (error) {
     console.error(`Erreur updateAward(${id}):`, error, update);
-    return null;
+    throw error;
   }
-  return mapAward(data);
+  const result = mapAward(data);
+  if (!result) throw new Error('Distinction non trouvée après mise à jour');
+  return result;
 }
 
 export async function deleteAward(id: string): Promise<boolean> {
@@ -259,4 +263,41 @@ export async function getStats() {
       return acc;
     }, {} as Record<string, number>),
   };
+}
+
+// ── CONFIGURATION DYNAMIQUE ──────────────────────────────────────────────────
+
+export async function getProjectCategories(): Promise<string[]> {
+  const { data, error } = await supabaseAdmin
+    .from('project_categories')
+    .select('name')
+    .order('name', { ascending: true });
+  if (error) {
+    console.error('Erreur getProjectCategories:', error);
+    return [];
+  }
+  return (data || []).map(row => row.name);
+}
+
+export async function getProjectTechnologies(): Promise<{ name: string; type: string }[]> {
+  const { data, error } = await supabaseAdmin
+    .from('project_technologies')
+    .select('name, type')
+    .order('name', { ascending: true });
+  if (error) {
+    console.error('Erreur getProjectTechnologies:', error);
+    return [];
+  }
+  return data || [];
+}
+
+export async function addProjectTechnology(name: string, type: 'common' | 'graphic' = 'common'): Promise<boolean> {
+  const { error } = await supabaseAdmin
+    .from('project_technologies')
+    .insert({ name, type });
+  if (error) {
+    console.error('Erreur addProjectTechnology:', error);
+    return false;
+  }
+  return true;
 }
