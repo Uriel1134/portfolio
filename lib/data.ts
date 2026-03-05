@@ -2,42 +2,54 @@ import { supabaseAdmin } from './supabase';
 import { Project, Award } from '../types/admin';
 
 // Helper pour mapper les données Supabase (snake_case) vers les types TS (camelCase)
-function mapProject(row: Record<string, unknown>): Project {
-  return {
-    id: row.id as string,
-    title: row.title as string,
-    description: row.description as string,
-    longDescription: row.long_description as string,
-    image: row.image as string,
-    images: (row.images as string[]) || [],
-    companyName: row.company_name as string | undefined,
-    category: (row.category as string[]) || [],
-    tech: (row.tech as string[]) || [],
-    year: row.year as string,
-    figmaLink: row.figma_link as string | undefined,
-    githubLink: row.github_link as string | undefined,
-    createdAt: row.created_at as string,
-    updatedAt: row.updated_at as string,
-  };
+function mapProject(row: Record<string, any> | null): Project | null {
+  if (!row) return null;
+  try {
+    return {
+      id: row.id as string,
+      title: row.title as string,
+      description: row.description as string,
+      longDescription: row.long_description as string,
+      image: row.image as string,
+      images: (row.images as string[]) || [],
+      companyName: row.company_name as string | undefined,
+      category: (row.category as string[]) || [],
+      tech: (row.tech as string[]) || [],
+      year: row.year as string,
+      figmaLink: row.figma_link as string | undefined,
+      githubLink: row.github_link as string | undefined,
+      createdAt: row.created_at as string,
+      updatedAt: row.updated_at as string,
+    };
+  } catch (err) {
+    console.error('Erreur de mapping projet:', err, row);
+    return null;
+  }
 }
 
-function mapAward(row: Record<string, unknown>): Award {
-  return {
-    id: row.id as string,
-    title: row.title as string,
-    event: row.event as string,
-    description: row.description as string,
-    date: row.date as string,
-    location: row.location as string,
-    image: row.image as string,
-    certificate: row.certificate as string,
-    icon: row.icon as string,
-    gradient: row.gradient as string,
-    borderColor: row.border_color as string,
-    bgColor: row.bg_color as string,
-    createdAt: row.created_at as string,
-    updatedAt: row.updated_at as string,
-  };
+function mapAward(row: Record<string, any> | null): Award | null {
+  if (!row) return null;
+  try {
+    return {
+      id: row.id as string,
+      title: row.title as string,
+      event: row.event as string,
+      description: row.description as string,
+      date: row.date as string,
+      location: row.location as string,
+      image: row.image as string,
+      certificate: row.certificate as string,
+      icon: row.icon as string,
+      gradient: row.gradient as string,
+      borderColor: row.border_color as string,
+      bgColor: row.bg_color as string,
+      createdAt: row.created_at as string,
+      updatedAt: row.updated_at as string,
+    };
+  } catch (err) {
+    console.error('Erreur de mapping award:', err, row);
+    return null;
+  }
 }
 
 // ── PROJETS ──────────────────────────────────────────────────────────────────
@@ -47,8 +59,11 @@ export async function getProjects(): Promise<Project[]> {
     .from('projects')
     .select('*')
     .order('created_at', { ascending: false });
-  if (error) throw new Error(error.message);
-  return (data || []).map(mapProject);
+  if (error) {
+    console.error('Erreur getProjects:', error);
+    throw new Error(error.message);
+  }
+  return (data || []).map(row => mapProject(row)).filter(Boolean) as Project[];
 }
 
 export async function getProject(id: string): Promise<Project | null> {
@@ -57,39 +72,50 @@ export async function getProject(id: string): Promise<Project | null> {
     .select('*')
     .eq('id', id)
     .single();
-  if (error) return null;
+  if (error) {
+    console.error(`Erreur getProject(${id}):`, error);
+    return null;
+  }
   return mapProject(data);
 }
 
 export async function createProject(
   projectData: Omit<Project, 'id' | 'createdAt' | 'updatedAt'>
 ): Promise<Project> {
+  const payload = {
+    title: projectData.title,
+    description: projectData.description,
+    long_description: projectData.longDescription,
+    image: projectData.image || '/images/projects/default-project.jpg',
+    images: projectData.images || [],
+    company_name: projectData.companyName || null,
+    category: projectData.category,
+    tech: projectData.tech,
+    year: projectData.year.toString(),
+    figma_link: projectData.figmaLink || null,
+    github_link: projectData.githubLink || null,
+  };
+
   const { data, error } = await supabaseAdmin
     .from('projects')
-    .insert({
-      title: projectData.title,
-      description: projectData.description,
-      long_description: projectData.longDescription,
-      image: projectData.image || '/images/projects/default-project.jpg',
-      images: projectData.images || [],
-      company_name: projectData.companyName || null,
-      category: projectData.category,
-      tech: projectData.tech,
-      year: projectData.year,
-      figma_link: projectData.figmaLink || null,
-      github_link: projectData.githubLink || null,
-    })
+    .insert(payload)
     .select()
     .single();
-  if (error) throw new Error(error.message);
-  return mapProject(data);
+
+  if (error) {
+    console.error('Erreur createProject:', error, payload);
+    throw new Error(error.message);
+  }
+  const result = mapProject(data);
+  if (!result) throw new Error('Erreur de mapping après création');
+  return result;
 }
 
 export async function updateProject(
   id: string,
   projectData: Partial<Omit<Project, 'id' | 'createdAt'>>
 ): Promise<Project | null> {
-  const update: Record<string, unknown> = { updated_at: new Date().toISOString() };
+  const update: Record<string, any> = { updated_at: new Date().toISOString() };
   if (projectData.title !== undefined) update.title = projectData.title;
   if (projectData.description !== undefined) update.description = projectData.description;
   if (projectData.longDescription !== undefined) update.long_description = projectData.longDescription;
@@ -98,7 +124,7 @@ export async function updateProject(
   if (projectData.companyName !== undefined) update.company_name = projectData.companyName;
   if (projectData.category !== undefined) update.category = projectData.category;
   if (projectData.tech !== undefined) update.tech = projectData.tech;
-  if (projectData.year !== undefined) update.year = projectData.year;
+  if (projectData.year !== undefined) update.year = projectData.year.toString();
   if (projectData.figmaLink !== undefined) update.figma_link = projectData.figmaLink;
   if (projectData.githubLink !== undefined) update.github_link = projectData.githubLink;
 
@@ -108,7 +134,11 @@ export async function updateProject(
     .eq('id', id)
     .select()
     .single();
-  if (error) return null;
+
+  if (error) {
+    console.error(`Erreur updateProject(${id}):`, error, update);
+    return null;
+  }
   return mapProject(data);
 }
 
@@ -124,8 +154,11 @@ export async function getAwards(): Promise<Award[]> {
     .from('awards')
     .select('*')
     .order('created_at', { ascending: false });
-  if (error) throw new Error(error.message);
-  return (data || []).map(mapAward);
+  if (error) {
+    console.error('Erreur getAwards:', error);
+    throw new Error(error.message);
+  }
+  return (data || []).map(row => mapAward(row)).filter(Boolean) as Award[];
 }
 
 export async function getAward(id: string): Promise<Award | null> {
@@ -141,32 +174,40 @@ export async function getAward(id: string): Promise<Award | null> {
 export async function createAward(
   awardData: Omit<Award, 'id' | 'createdAt' | 'updatedAt'>
 ): Promise<Award> {
+  const payload = {
+    title: awardData.title,
+    event: awardData.event,
+    description: awardData.description,
+    date: awardData.date,
+    location: awardData.location,
+    image: awardData.image || '/images/awards/placeholder-trophy.svg',
+    certificate: awardData.certificate || '/images/certificates/placeholder-certificate.svg',
+    icon: awardData.icon || 'ri-award-line',
+    gradient: awardData.gradient || 'from-blue-400 to-purple-400',
+    border_color: awardData.borderColor || 'border-blue-200',
+    bg_color: awardData.bgColor || 'bg-blue-50',
+  };
+
   const { data, error } = await supabaseAdmin
     .from('awards')
-    .insert({
-      title: awardData.title,
-      event: awardData.event,
-      description: awardData.description,
-      date: awardData.date,
-      location: awardData.location,
-      image: awardData.image || '/images/awards/placeholder-trophy.svg',
-      certificate: awardData.certificate || '/images/certificates/placeholder-certificate.svg',
-      icon: awardData.icon || 'ri-award-line',
-      gradient: awardData.gradient || 'from-blue-400 to-purple-400',
-      border_color: awardData.borderColor || 'border-blue-200',
-      bg_color: awardData.bgColor || 'bg-blue-50',
-    })
+    .insert(payload)
     .select()
     .single();
-  if (error) throw new Error(error.message);
-  return mapAward(data);
+
+  if (error) {
+    console.error('Erreur createAward:', error, payload);
+    throw new Error(error.message);
+  }
+  const result = mapAward(data);
+  if (!result) throw new Error('Erreur de mapping après création award');
+  return result;
 }
 
 export async function updateAward(
   id: string,
   awardData: Partial<Omit<Award, 'id' | 'createdAt'>>
 ): Promise<Award | null> {
-  const update: Record<string, unknown> = { updated_at: new Date().toISOString() };
+  const update: Record<string, any> = { updated_at: new Date().toISOString() };
   if (awardData.title !== undefined) update.title = awardData.title;
   if (awardData.event !== undefined) update.event = awardData.event;
   if (awardData.description !== undefined) update.description = awardData.description;
@@ -185,7 +226,11 @@ export async function updateAward(
     .eq('id', id)
     .select()
     .single();
-  if (error) return null;
+
+  if (error) {
+    console.error(`Erreur updateAward(${id}):`, error, update);
+    return null;
+  }
   return mapAward(data);
 }
 

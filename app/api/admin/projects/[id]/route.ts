@@ -25,7 +25,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
 
     const { id } = await params;
     const project = await getProject(id);
-    
+
     if (!project) {
       return NextResponse.json(
         { error: 'Projet non trouvé' },
@@ -45,6 +45,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
 
 // PUT - Mettre à jour un projet
 export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   try {
     // Vérification d'authentification
     const authHeader = req.headers.get('authorization');
@@ -65,10 +66,9 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
     }
 
     const projectData = await req.json();
-    const { id } = await params;
 
     const updatedProject = await updateProject(id, projectData);
-    
+
     if (!updatedProject) {
       return NextResponse.json(
         { error: 'Projet non trouvé' },
@@ -78,9 +78,9 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
 
     return NextResponse.json({ success: true, project: updatedProject });
   } catch (error) {
-    console.error('Erreur lors de la mise à jour du projet:', error);
+    console.error(`Erreur API PUT /api/admin/projects/${id}:`, error);
     return NextResponse.json(
-      { error: 'Erreur lors de la mise à jour du projet' },
+      { error: `Erreur lors de la mise à jour du projet: ${error instanceof Error ? error.message : 'Erreur inconnue'}` },
       { status: 500 }
     );
   }
@@ -109,7 +109,7 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ i
 
     const { id } = await params;
     const deleted = await deleteProject(id);
-    
+
     if (!deleted) {
       return NextResponse.json(
         { error: 'Projet non trouvé' },
