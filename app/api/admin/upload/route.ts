@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { writeFile, mkdir } from 'fs/promises';
-import { join } from 'path';
 import { verifyToken } from '../../../../lib/auth';
+import { supabaseAdmin } from '../../../../lib/supabase';
 
 export async function POST(request: NextRequest) {
   try {
@@ -15,7 +14,7 @@ export async function POST(request: NextRequest) {
     }
 
     const token = authHeader.substring(7);
-    const user = await verifyToken(token);
+    const user = verifyToken(token);
     if (!user) {
       return NextResponse.json(
         { error: 'Token invalide' },
@@ -55,30 +54,38 @@ export async function POST(request: NextRequest) {
     // Générer un nom de fichier unique
     const timestamp = Date.now();
     const originalName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
-    const fileName = `${timestamp}_${originalName}`;
+    const fileName = `${folder}/${timestamp}_${originalName}`;
 
-    // Définir le chemin de destination
-    const uploadDir = join(process.cwd(), 'public', 'images', folder);
-    const filePath = join(uploadDir, fileName);
-
-    // Créer le dossier s'il n'existe pas
-    try {
-      await mkdir(uploadDir, { recursive: true });
-    } catch (error) {
-      // Le dossier existe déjà
-    }
-
-    // Convertir le fichier en buffer et l'écrire
+    // Convertir le fichier en buffer
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
-    await writeFile(filePath, buffer);
 
-    // Retourner l'URL du fichier
-    const fileUrl = `/images/${folder}/${fileName}`;
+    // Upload vers Supabase Storage (Bucket 'portfolio')
+    const { data, error } = await supabaseAdmin
+      .storage
+      .from('portfolio')
+      .upload(fileName, buffer, {
+        contentType: file.type,
+        upsert: true
+      });
+
+    if (error) {
+      console.error('Erreur Supabase Storage:', error);
+      return NextResponse.json(
+        { error: `Erreur lors de l'upload: ${error.message}` },
+        { status: 500 }
+      );
+    }
+
+    // Récupérer l'URL publique
+    const { data: { publicUrl } } = supabaseAdmin
+      .storage
+      .from('portfolio')
+      .getPublicUrl(fileName);
 
     return NextResponse.json({
       success: true,
-      url: fileUrl,
+      url: publicUrl,
       fileName: fileName,
       size: file.size,
       type: file.type
