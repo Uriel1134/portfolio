@@ -1,165 +1,217 @@
-import fs from 'fs';
-import path from 'path';
-import { v4 as uuidv4 } from 'uuid';
-import { Project, Award, AdminData } from '../types/admin';
+import { supabaseAdmin } from './supabase';
+import { Project, Award } from '../types/admin';
 
-const DATA_FILE = path.join(process.cwd(), 'data', 'portfolio.json');
-
-// Fonction pour lire les données
-export async function readData(): Promise<AdminData> {
-  try {
-    const fileContent = fs.readFileSync(DATA_FILE, 'utf8');
-    return JSON.parse(fileContent);
-  } catch (error) {
-    console.error('Erreur lors de la lecture des données:', error);
-    // Retourner des données par défaut si le fichier n'existe pas
-    return {
-      projects: [],
-      awards: [],
-      lastUpdated: new Date().toISOString()
-    };
-  }
+// Helper pour mapper les données Supabase (snake_case) vers les types TS (camelCase)
+function mapProject(row: Record<string, unknown>): Project {
+  return {
+    id: row.id as string,
+    title: row.title as string,
+    description: row.description as string,
+    longDescription: row.long_description as string,
+    image: row.image as string,
+    images: (row.images as string[]) || [],
+    companyName: row.company_name as string | undefined,
+    category: (row.category as string[]) || [],
+    tech: (row.tech as string[]) || [],
+    year: row.year as string,
+    figmaLink: row.figma_link as string | undefined,
+    githubLink: row.github_link as string | undefined,
+    createdAt: row.created_at as string,
+    updatedAt: row.updated_at as string,
+  };
 }
 
-// Fonction pour écrire les données
-export async function writeData(data: AdminData): Promise<void> {
-  try {
-    data.lastUpdated = new Date().toISOString();
-    fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2), 'utf8');
-  } catch (error) {
-    console.error('Erreur lors de l\'écriture des données:', error);
-    throw new Error('Impossible de sauvegarder les données');
-  }
+function mapAward(row: Record<string, unknown>): Award {
+  return {
+    id: row.id as string,
+    title: row.title as string,
+    event: row.event as string,
+    description: row.description as string,
+    date: row.date as string,
+    location: row.location as string,
+    image: row.image as string,
+    certificate: row.certificate as string,
+    icon: row.icon as string,
+    gradient: row.gradient as string,
+    borderColor: row.border_color as string,
+    bgColor: row.bg_color as string,
+    createdAt: row.created_at as string,
+    updatedAt: row.updated_at as string,
+  };
 }
 
-// CRUD pour les projets
+// ── PROJETS ──────────────────────────────────────────────────────────────────
+
 export async function getProjects(): Promise<Project[]> {
-  const data = await readData();
-  return data.projects;
+  const { data, error } = await supabaseAdmin
+    .from('projects')
+    .select('*')
+    .order('created_at', { ascending: false });
+  if (error) throw new Error(error.message);
+  return (data || []).map(mapProject);
 }
 
 export async function getProject(id: string): Promise<Project | null> {
-  const data = await readData();
-  return data.projects.find(project => project.id === id) || null;
+  const { data, error } = await supabaseAdmin
+    .from('projects')
+    .select('*')
+    .eq('id', id)
+    .single();
+  if (error) return null;
+  return mapProject(data);
 }
 
-export async function createProject(projectData: Omit<Project, 'id' | 'createdAt' | 'updatedAt'>): Promise<Project> {
-  const data = await readData();
-  const newProject: Project = {
-    ...projectData,
-    id: uuidv4(),
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString()
-  };
-  
-  data.projects.push(newProject);
-  await writeData(data);
-  return newProject;
+export async function createProject(
+  projectData: Omit<Project, 'id' | 'createdAt' | 'updatedAt'>
+): Promise<Project> {
+  const { data, error } = await supabaseAdmin
+    .from('projects')
+    .insert({
+      title: projectData.title,
+      description: projectData.description,
+      long_description: projectData.longDescription,
+      image: projectData.image || '/images/projects/default-project.jpg',
+      images: projectData.images || [],
+      company_name: projectData.companyName || null,
+      category: projectData.category,
+      tech: projectData.tech,
+      year: projectData.year,
+      figma_link: projectData.figmaLink || null,
+      github_link: projectData.githubLink || null,
+    })
+    .select()
+    .single();
+  if (error) throw new Error(error.message);
+  return mapProject(data);
 }
 
-export async function updateProject(id: string, projectData: Partial<Omit<Project, 'id' | 'createdAt'>>): Promise<Project | null> {
-  const data = await readData();
-  const projectIndex = data.projects.findIndex(project => project.id === id);
-  
-  if (projectIndex === -1) {
-    return null;
-  }
-  
-  data.projects[projectIndex] = {
-    ...data.projects[projectIndex],
-    ...projectData,
-    updatedAt: new Date().toISOString()
-  };
-  
-  await writeData(data);
-  return data.projects[projectIndex];
+export async function updateProject(
+  id: string,
+  projectData: Partial<Omit<Project, 'id' | 'createdAt'>>
+): Promise<Project | null> {
+  const update: Record<string, unknown> = { updated_at: new Date().toISOString() };
+  if (projectData.title !== undefined) update.title = projectData.title;
+  if (projectData.description !== undefined) update.description = projectData.description;
+  if (projectData.longDescription !== undefined) update.long_description = projectData.longDescription;
+  if (projectData.image !== undefined) update.image = projectData.image;
+  if (projectData.images !== undefined) update.images = projectData.images;
+  if (projectData.companyName !== undefined) update.company_name = projectData.companyName;
+  if (projectData.category !== undefined) update.category = projectData.category;
+  if (projectData.tech !== undefined) update.tech = projectData.tech;
+  if (projectData.year !== undefined) update.year = projectData.year;
+  if (projectData.figmaLink !== undefined) update.figma_link = projectData.figmaLink;
+  if (projectData.githubLink !== undefined) update.github_link = projectData.githubLink;
+
+  const { data, error } = await supabaseAdmin
+    .from('projects')
+    .update(update)
+    .eq('id', id)
+    .select()
+    .single();
+  if (error) return null;
+  return mapProject(data);
 }
 
 export async function deleteProject(id: string): Promise<boolean> {
-  const data = await readData();
-  const projectIndex = data.projects.findIndex(project => project.id === id);
-  
-  if (projectIndex === -1) {
-    return false;
-  }
-  
-  data.projects.splice(projectIndex, 1);
-  await writeData(data);
-  return true;
+  const { error } = await supabaseAdmin.from('projects').delete().eq('id', id);
+  return !error;
 }
 
-// CRUD pour les distinctions
+// ── DISTINCTIONS ─────────────────────────────────────────────────────────────
+
 export async function getAwards(): Promise<Award[]> {
-  const data = await readData();
-  return data.awards;
+  const { data, error } = await supabaseAdmin
+    .from('awards')
+    .select('*')
+    .order('created_at', { ascending: false });
+  if (error) throw new Error(error.message);
+  return (data || []).map(mapAward);
 }
 
 export async function getAward(id: string): Promise<Award | null> {
-  const data = await readData();
-  return data.awards.find(award => award.id === id) || null;
+  const { data, error } = await supabaseAdmin
+    .from('awards')
+    .select('*')
+    .eq('id', id)
+    .single();
+  if (error) return null;
+  return mapAward(data);
 }
 
-export async function createAward(awardData: Omit<Award, 'id' | 'createdAt' | 'updatedAt'>): Promise<Award> {
-  const data = await readData();
-  const newAward: Award = {
-    ...awardData,
-    id: uuidv4(),
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString()
-  };
-  
-  data.awards.push(newAward);
-  await writeData(data);
-  return newAward;
+export async function createAward(
+  awardData: Omit<Award, 'id' | 'createdAt' | 'updatedAt'>
+): Promise<Award> {
+  const { data, error } = await supabaseAdmin
+    .from('awards')
+    .insert({
+      title: awardData.title,
+      event: awardData.event,
+      description: awardData.description,
+      date: awardData.date,
+      location: awardData.location,
+      image: awardData.image || '/images/awards/placeholder-trophy.svg',
+      certificate: awardData.certificate || '/images/certificates/placeholder-certificate.svg',
+      icon: awardData.icon || 'ri-award-line',
+      gradient: awardData.gradient || 'from-blue-400 to-purple-400',
+      border_color: awardData.borderColor || 'border-blue-200',
+      bg_color: awardData.bgColor || 'bg-blue-50',
+    })
+    .select()
+    .single();
+  if (error) throw new Error(error.message);
+  return mapAward(data);
 }
 
-export async function updateAward(id: string, awardData: Partial<Omit<Award, 'id' | 'createdAt'>>): Promise<Award | null> {
-  const data = await readData();
-  const awardIndex = data.awards.findIndex(award => award.id === id);
-  
-  if (awardIndex === -1) {
-    return null;
-  }
-  
-  data.awards[awardIndex] = {
-    ...data.awards[awardIndex],
-    ...awardData,
-    updatedAt: new Date().toISOString()
-  };
-  
-  await writeData(data);
-  return data.awards[awardIndex];
+export async function updateAward(
+  id: string,
+  awardData: Partial<Omit<Award, 'id' | 'createdAt'>>
+): Promise<Award | null> {
+  const update: Record<string, unknown> = { updated_at: new Date().toISOString() };
+  if (awardData.title !== undefined) update.title = awardData.title;
+  if (awardData.event !== undefined) update.event = awardData.event;
+  if (awardData.description !== undefined) update.description = awardData.description;
+  if (awardData.date !== undefined) update.date = awardData.date;
+  if (awardData.location !== undefined) update.location = awardData.location;
+  if (awardData.image !== undefined) update.image = awardData.image;
+  if (awardData.certificate !== undefined) update.certificate = awardData.certificate;
+  if (awardData.icon !== undefined) update.icon = awardData.icon;
+  if (awardData.gradient !== undefined) update.gradient = awardData.gradient;
+  if (awardData.borderColor !== undefined) update.border_color = awardData.borderColor;
+  if (awardData.bgColor !== undefined) update.bg_color = awardData.bgColor;
+
+  const { data, error } = await supabaseAdmin
+    .from('awards')
+    .update(update)
+    .eq('id', id)
+    .select()
+    .single();
+  if (error) return null;
+  return mapAward(data);
 }
 
 export async function deleteAward(id: string): Promise<boolean> {
-  const data = await readData();
-  const awardIndex = data.awards.findIndex(award => award.id === id);
-  
-  if (awardIndex === -1) {
-    return false;
-  }
-  
-  data.awards.splice(awardIndex, 1);
-  await writeData(data);
-  return true;
+  const { error } = await supabaseAdmin.from('awards').delete().eq('id', id);
+  return !error;
 }
 
-// Fonction pour obtenir les statistiques
+// ── STATISTIQUES ─────────────────────────────────────────────────────────────
+
 export async function getStats() {
-  const data = await readData();
+  const [projects, awards] = await Promise.all([getProjects(), getAwards()]);
+
   return {
-    totalProjects: data.projects.length,
-    totalAwards: data.awards.length,
-    lastUpdated: data.lastUpdated,
-    projectsByCategory: data.projects.reduce((acc, project) => {
+    totalProjects: projects.length,
+    totalAwards: awards.length,
+    lastUpdated: new Date().toISOString(),
+    projectsByCategory: projects.reduce((acc, project) => {
       project.category.forEach(cat => {
         acc[cat] = (acc[cat] || 0) + 1;
       });
       return acc;
     }, {} as Record<string, number>),
-    projectsByYear: data.projects.reduce((acc, project) => {
+    projectsByYear: projects.reduce((acc, project) => {
       acc[project.year] = (acc[project.year] || 0) + 1;
       return acc;
-    }, {} as Record<string, number>)
+    }, {} as Record<string, number>),
   };
 }
