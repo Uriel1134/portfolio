@@ -77,10 +77,24 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
     }
 
     return NextResponse.json({ success: true, project: updatedProject });
-  } catch (error) {
+  } catch (error: any) {
     console.error(`Erreur API PUT /api/admin/projects/${id}:`, error);
+
+    // Extraction du message d'erreur
+    let errorMessage = 'Erreur inconnue';
+    if (error instanceof Error) {
+      errorMessage = error.message;
+    } else if (typeof error === 'object' && error !== null) {
+      errorMessage = error.message || error.details || JSON.stringify(error);
+    }
+
+    // Détection spécifique de l'erreur UUID pour aider l'utilisateur
+    if (errorMessage.includes('invalid input syntax for type uuid')) {
+      errorMessage = `ID invalide (${id}). Le système attend un UUID mais a reçu un slug. Veuillez rafraîchir la liste des projets.`;
+    }
+
     return NextResponse.json(
-      { error: `DEBUG SUPABASE: Erreur lors de la mise à jour du projet: ${error instanceof Error ? error.message : 'Erreur inconnue'}` },
+      { error: `DEBUG SUPABASE: Erreur lors de la mise à jour du projet: ${errorMessage}` },
       { status: 500 }
     );
   }
