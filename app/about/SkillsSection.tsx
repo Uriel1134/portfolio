@@ -30,7 +30,7 @@ const tools = [
 
 export default function SkillsSection() {
   return (
-    <section className="py-24 bg-zinc-950">
+    <section className="relative z-10 -mt-24 lg:-mt-32 pt-16 pb-24 bg-zinc-950 rounded-t-[3rem] lg:rounded-t-[5rem] shadow-[0_-20px_50px_rgba(0,0,0,0.5)]">
       <div className="max-w-6xl mx-auto px-6 lg:px-8">
         <div className="text-center mb-16">
           <SectionTitle

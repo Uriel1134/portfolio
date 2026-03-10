@@ -7,9 +7,9 @@ import ExperienceSection from './ExperienceSection';
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-black">
       <Header />
-      <main className="pt-20">
+      <main className="pt-32 lg:pt-12 bg-black">
         <AboutHero />
         <SkillsSection />
         <ExperienceSection />
