@@ -4,6 +4,7 @@ import GraphicGallery from './GraphicGallery';
 import BrandingGallery from './BrandingGallery';
 
 interface Project {
+  id: string; // Ajout de l'id pour les clés
   title: string;
   description: string;
   longDescription: string;
@@ -13,83 +14,15 @@ interface Project {
   year: string;
   figmaLink?: string;
   githubLink?: string;
+  createdAt?: string; // Ajout de createdAt pour le tri et badge
 }
-
-const projects = [
-  {
-    title: "PTCCARE Mobile",
-    description: "Application mobile de collecte et de synchronisation des données de santé de la femme enceinte et des enfants de moins de cinq ans.",
-    longDescription: "PTCCARE Mobile est une application de santé destinée à faciliter la collecte et la synchronisation des données médicales des femmes enceintes et des enfants de moins de cinq ans. Elle est conçue avec une interface intuitive centrée sur l’agent de santé. L’objectif est d’améliorer le suivi médical et la prise de décision en milieu rural.",
-    image: "/images/projects/ptc-care.png",
-    category: ["UI/UX Design", "Developpement Mobile"],
-    tech: ["Figma", "Flutter", "SQLite"],
-    year: "2025",
-    figmaLink: "https://www.figma.com/design/jzuKJ4QW621XoTrUaKak2L/Untitled?node-id=0-1&t=b2e3jkVzikw7kkfr-1",
-    githubLink: "https://github.com/Uriel1134/ptccare_mobile"
-  },
-  {
-    title: "INSTI METEO",
-    description: "Application mobile de suivi des parametres météologiques dans l'Institut National Supérieur de Technologie Industrielle de Lokossa avec un système IOT connecté.",
-    longDescription: "INSTI METEO est une application mobile connectée à un système IoT permettant de suivre en temps réel les paramètres météorologiques sur à l’INSTI Lokossa. Elle collecte et affiche des données comme la température, l’humidité et la pression. Le projet vise à sensibiliser et appuyer la recherche locale sur le climat.",
-    image: "/images/projects/insti-meteo.png",
-    category: ["UI/UX Design", "Developpement Mobile"],
-    tech: ["Figma", "Flutter", "Firebase"],
-    year: "2025",
-    figmaLink: "https://www.figma.com/design/ei17roWQZpZIgHpt7iwbjC/Untitled?node-id=240-139&t=yMXDYzrbkpW3Hkh6-1",
-    githubLink: "https://github.com/Uriel1134/INSTI-METEO"
-  },
-  {
-    title: "Bèmi",
-    description: "Application mobile qui aide à bien trier tous les types de déchets grâce à l’intelligence artificielle et au QR code.Et à chaque bon geste, tu gagnes des cadeaux, qu’on appelle les “kwètché”.",
-    longDescription: "BèmiApp est une application mobile intelligente qui facilite le tri des déchets grâce à la reconnaissance via QR code et à l’intelligence artificielle. Chaque tri correct permet de gagner des récompenses appelé “kwètché”, encourageant ainsi les bons gestes écologiques. L’application allie technologie et écoresponsabilité pour promouvoir un environnement plus propre.",
-    image: "/images/projects/Bemi.png",
-    category: ["UI/UX Design", "Developpement Mobile"],
-    tech: ["Figma", "Flutter", "Laravel", "MySql"],
-    year: "2025",
-    figmaLink: "https://www.figma.com/design/l7BtDDTC8BzmQvajo2AODG/B%C3%A8mi_APP?node-id=3-191&t=XuM9KKLqd1T7fvXj-1",
-    githubLink: "https://github.com/Uriel1134/B-mi_app"
-  },
-  {
-    title: "YÓVÒ GBÈ",
-    description: "Application Mobile d'apprentissage linguistique du français à partir du fongbe immersive intégrant des éléments culturels africains avec une approche pédagogique moderne.",
-    longDescription: "YÓVÒ GBÈ est une application mobile d’apprentissage du français destinée aux artisans, commerçants et autres personnes parlant le fon. Elle utilise une approche intuitive basée sur l’écoute audio (voix off) et des illustrations visuelles. L’objectif est de faciliter l’inclusion linguistique par un apprentissage pratique et accessible",
-    image: "/images/projects/YOVO_GBE.jpg",
-    category: ["UI/UX Design", "Développement Web"],
-    tech: ["Figma", "Reacte Native", "MySql"],
-    year: "2025",
-    figmaLink: "https://www.figma.com/design/QOouqiypG7gpfDRCfxk3Nv/YOVO-GBE?node-id=0-1&t=mRGoF5WArPekyPTH-1",
-    githubLink: "https://github.com/Uriel1134/yovogbe"
-  },
-  {
-    title: "Climate Insight",
-    description: "Plateforme web d’agrégation, d’analyse et de visualisation en temps réel des données climatiques provenant de sources fiables au Bénin.",
-    longDescription: "Climate Insight est une plateforme web innovante qui centralise les données climatiques issues de sources fiables au Bénin. Elle permet une analyse approfondie et une visualisation claire des indicateurs environnementaux comme la température, les précipitations ou l’humidité. L’objectif est de fournir aux chercheurs, agriculteurs, décideurs et citoyens des informations précises pour une meilleure adaptation aux enjeux climatiques.",
-    image: "/images/projects/Climate_Insignt.jpg",
-    category: ["UI/UX Design", "Developpement web"],
-    tech: ["Figma", "Reacte Js", "Leaflet", "Chart.js", "PostgreSQL"],
-    year: "2025",
-    figmaLink: "https://www.figma.com/design/1eYpWc1gk3bX4mJH3v1u0g/Climate-Insight?node-id=0-1&t=G9NyQQBni4MHfLeu-1",
-    githubLink: "https://github.com/Uriel1134/ClimateInsight"
-  },
-  {
-    title: "Recrutement INSTI",
-    description: "Série d'illustrations digitales explorant les thèmes de l'identité africaine moderne et de la transformation digitale.",
-    longDescription: "Collection d'œuvres artistiques mêlant techniques traditionnelles et outils numériques pour représenter l'évolution de l'Afrique contemporaine. Exploration visuelle des liens entre tradition et innovation.",
-    image: "/images/projects/Recrutement_Insti.jpg",
-    category: ["UI/UX Design", "Developpement web"],
-    tech: ["Figma", "DJANGO", "PostgreSQL"],
-    year: "2025",
-    figmaLink: "https://www.figma.com/design/l2AjGCNbiFnbMOKYAYRvor/Recrutement-Enseignant-INSTI?node-id=0-1&t=G9NyQQBni4MHfLeu-1",
-    githubLink: "https://github.com/Uriel1134/huma"
-  }
-];
 
 const categories = ["Tous", "UI/UX Design", "Développement Web", "Développement Mobile", "Création Graphique", "Branding"];
 
 export default function ProjectsGrid() {
   const [selectedCategory, setSelectedCategory] = useState<string>("Tous");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [projectsData, setProjectsData] = useState<Project[]>(projects);
+  const [projectsData, setProjectsData] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -102,7 +35,6 @@ export default function ProjectsGrid() {
         }
       } catch (error) {
         console.error('Erreur lors du chargement des projets:', error);
-        setProjectsData(projects);
       } finally {
         setLoading(false);
       }
@@ -172,7 +104,7 @@ export default function ProjectsGrid() {
                   <div className="h-px w-12 bg-[#C9A84C]"></div>
                   <h2 className="text-2xl font-black text-white uppercase tracking-tight">Identités Visuelles</h2>
                 </div>
-                <BrandingGallery projects={projectsData.filter(p => p.category.includes("Branding")).map(p => ({ ...p, id: p.title }))} hideHeader />
+                <BrandingGallery projects={projectsData.filter(p => p.category.includes("Branding")).map(p => ({ ...p, id: p.id || p.title }))} hideHeader />
               </div>
             )}
 
@@ -183,14 +115,14 @@ export default function ProjectsGrid() {
                   <div className="h-px w-12 bg-[#C9A84C]"></div>
                   <h2 className="text-2xl font-black text-white uppercase tracking-tight">Design Graphique</h2>
                 </div>
-                <GraphicGallery projects={projectsData.filter(p => p.category.includes("Création Graphique")).map(p => ({ ...p, id: p.title }))} />
+                <GraphicGallery projects={projectsData.filter(p => p.category.includes("Création Graphique")).map(p => ({ ...p, id: p.id || p.title }))} />
               </div>
             )}
           </div>
         ) : selectedCategory === "Création Graphique" ? (
-          <GraphicGallery projects={filteredProjects.map(p => ({ ...p, id: p.title }))} />
+          <GraphicGallery projects={filteredProjects.map(p => ({ ...p, id: p.id || p.title }))} />
         ) : selectedCategory === "Branding" ? (
-          <BrandingGallery projects={filteredProjects.map(p => ({ ...p, id: p.title }))} />
+          <BrandingGallery projects={filteredProjects.map(p => ({ ...p, id: p.id || p.title }))} />
         ) : (
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
             {filteredProjects.map((project, index) => (
@@ -292,6 +224,13 @@ function ProjectCard({ project, onOpenDetails }: { project: Project, onOpenDetai
           alt={project.title}
           className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-105"
         />
+
+        {/* Badge Nouveau */}
+        {project.createdAt && (new Date().getTime() - new Date(project.createdAt).getTime() < 7 * 24 * 60 * 60 * 1000) && (
+          <div className="absolute top-4 left-4 z-10 px-3 py-1 bg-[#C9A84C] text-black text-[10px] font-black uppercase tracking-widest rounded-lg shadow-xl animate-pulse">
+            Nouveau
+          </div>
+        )}
         <div className="absolute inset-0 bg-black/40 transition-opacity duration-300 opacity-0 group-hover:opacity-100 flex items-center justify-center">
           <div
             onClick={(e) => {

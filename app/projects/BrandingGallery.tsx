@@ -11,6 +11,7 @@ interface Project {
   category: string[];
   tech: string[];
   year: string;
+  createdAt?: string;
 }
 
 interface GalleryImage {
@@ -25,6 +26,7 @@ interface CompanyGroup {
   company: string;
   images: GalleryImage[];
   totalImages: number;
+  latestDate: number;
 }
 
 interface BrandingGalleryProps {
@@ -98,11 +100,20 @@ export default function BrandingGallery({ projects, hideHeader }: BrandingGaller
       }
     });
 
-    return Object.entries(groups).map(([company, images]) => ({
-      company,
-      images,
-      totalImages: images.length
-    })).sort((a, b) => b.totalImages - a.totalImages);
+    return Object.entries(groups).map(([company, images]) => {
+      // Trouver la date la plus récente pour ce groupe
+      const latestDate = Math.max(...projects
+        .filter(p => extractCompanyName(p) === company)
+        .map(p => p.createdAt ? new Date(p.createdAt).getTime() : 0)
+      );
+
+      return {
+        company,
+        images,
+        totalImages: images.length,
+        latestDate
+      };
+    }).sort((a, b) => b.latestDate - a.latestDate);
   }, []);
 
   const companyGroups = groupImagesByCompany(projects);

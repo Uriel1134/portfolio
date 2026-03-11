@@ -1,5 +1,4 @@
-'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import SectionTitle from '@/components/ui/SectionTitle';
 
@@ -13,57 +12,57 @@ interface Project {
   year: string;
   figmaLink?: string;
   githubLink?: string;
+  createdAt?: string;
 }
-
-const projects: Project[] = [
-  {
-    title: "PTCCARE Mobile",
-    description: "Application mobile de collecte et de synchronisation des données de santé de la femme enceinte et des enfants de moins de cinq ans.",
-    longDescription: "PTCCARE Mobile est une application de santé destinée à faciliter la collecte et la synchronisation des données médicales des femmes enceintes et des enfants de moins de cinq ans. Elle est conçue avec une interface intuitive centrée sur l’agent de santé. L’objectif est d’améliorer le suivi médical et la prise de décision en milieu rural.",
-    image: "/images/projects/ptc-care.png",
-    category: ["UI/UX Design", "Developpement Mobile"],
-    tech: ["Figma", "Flutter", "SQLite"],
-    year: "2025",
-    figmaLink: "https://www.figma.com/design/jzuKJ4QW621XoTrUaKak2L/Untitled?node-id=0-1&t=b2e3jkVzikw7kkfr-1",
-    githubLink: "https://github.com/Uriel1134/ptccare_mobile"
-  },
-  {
-    title: "INSTI METEO",
-    description: "Application mobile de suivi des parametres météologiques dans l'Institut National Supérieur de Technologie Industrielle de Lokossa avec un système IOT connecté.",
-    longDescription: "INSTI METEO est une application mobile connectée à un système IoT permettant de suivre en temps réel les paramètres météorologiques sur à l’INSTI Lokossa. Elle collecte et affiche des données comme la température, l’humidité et la pression. Le projet vise à sensibiliser et appuyer la recherche locale sur le climat.",
-    image: "/images/projects/insti-meteo.png",
-    category: ["UI/UX Design", "Developpement Mobile"],
-    tech: ["Figma", "Flutter", "Firebase"],
-    year: "2025",
-    figmaLink: "https://www.figma.com/design/ei17roWQZpZIgHpt7iwbjC/Untitled?node-id=240-139&t=yMXDYzrbkpW3Hkh6-1",
-    githubLink: "https://github.com/Uriel1134/INSTI-METEO"
-  },
-  {
-    title: "Bèmi",
-    description: "Application mobile qui aide à bien trier tous les types de déchets grâce à l’intelligence artificielle et au QR code.Et à chaque bon geste, tu gagnes des cadeaux, qu’on appelle les “kwètché”.",
-    longDescription: "BèmiApp est une application mobile intelligente qui facilite le tri des déchets grâce à la reconnaissance via QR code et à l’intelligence artificielle. Chaque tri correct permet de gagner des récompenses appelées “kwètché”, encourageant ainsi les bons gestes écologiques. L’application allie technologie et écoresponsabilité pour promouvoir un environnement plus propre.",
-    image: "/images/projects/Bemi.png",
-    category: ["UI/UX Design", "Developpement Mobile"],
-    tech: ["Figma", "Flutter", "Laravel", "MySql"],
-    year: "2025",
-    figmaLink: "https://www.figma.com/design/l7BtDDTC8BzmQvajo2AODG/B%C3%A8mi_APP?node-id=3-191&t=XuM9KKLqd1T7fvXj-1",
-    githubLink: "https://github.com/Uriel1134/B-mi_app"
-  },
-  {
-    title: "YÓVÒ GBÈ",
-    description: "Application Mobile d'apprentissage linguistique du français à partir du fongbe immersive intégrant des éléments culturels africains avec une approche pédagogique moderne.",
-    longDescription: "YÓVÒ GBÈ est une application mobile d’apprentissage du français destinée aux artisans, commerçants et autres personnes parlant le fon. Elle utilise une approche intuitive basée sur l’écoute audio (voix off) et des illustrations visuelles. L’objectif est de faciliter l’inclusion linguistique par un apprentissage pratique et accessible",
-    image: "/images/projects/YOVO_GBE.jpg",
-    category: ["UI/UX Design", "Développement Web"],
-    tech: ["Figma", "Reacte Native", "MySql"],
-    year: "2025",
-    figmaLink: "https://www.figma.com/design/QOouqiypG7gpfDRCfxk3Nv/YOVO-GBE?node-id=0-1&t=mRGoF5WArPekvPTH-1",
-    githubLink: "https://github.com/Uriel1134/yovogbe"
-  }
-];
 
 export default function FeaturedWork() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [projectsData, setProjectsData] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const response = await fetch('/api/portfolio');
+        if (response.ok) {
+          const data = await response.json();
+          // Filter pour ne garder que le Web et Mobile (Digital)
+          const digitalProjects = data.projects.filter((p: Project) =>
+            p.category.some(c => ["UI/UX Design", "Développement Web", "Développement Mobile"].includes(c))
+          );
+
+          // Si on a moins de 6 projets digitaux, on complète avec les autres par date
+          if (digitalProjects.length < 6) {
+            const otherProjects = data.projects.filter((p: Project) =>
+              !p.category.some(c => ["UI/UX Design", "Développement Web", "Développement Mobile"].includes(c))
+            );
+            setProjectsData([...digitalProjects, ...otherProjects].slice(0, 6));
+          } else {
+            setProjectsData(digitalProjects.slice(0, 6));
+          }
+        }
+      } catch (error) {
+        console.error('Erreur lors du chargement des projets en vedette:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProjects();
+  }, []);
+
+  if (loading) {
+    return (
+      <section className="py-24 bg-black">
+        <div className="max-w-6xl mx-auto px-6 lg:px-8">
+          <div className="flex items-center justify-center h-64">
+            <div className="w-8 h-8 border-4 border-[#C9A84C] rounded-full border-t-transparent animate-spin"></div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (projectsData.length === 0) return null;
 
   return (
     <section className="py-24 bg-black">
@@ -80,7 +79,7 @@ export default function FeaturedWork() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {projects.map((project, index) => (
+          {projectsData.map((project, index) => (
             <div
               key={index}
               className="bg-zinc-900 rounded-2xl overflow-hidden hover:shadow-2xl hover:shadow-[#C9A84C]/10 transition-all duration-500 group cursor-pointer transform hover:-translate-y-1 border border-white/10 hover:border-[#C9A84C]/30"
