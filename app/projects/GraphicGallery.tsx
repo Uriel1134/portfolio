@@ -66,66 +66,79 @@ export default function GraphicGallery({ projects }: GraphicGalleryProps) {
       </div>
 
       {selectedProject && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/95 backdrop-blur-md" onClick={() => setSelectedProject(null)}>
-          <div className="relative max-w-7xl max-h-[95vh] w-full" onClick={(e) => e.stopPropagation()}>
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/98 backdrop-blur-xl animate-fade-in" onClick={() => setSelectedProject(null)}>
+          <div className="relative w-full h-full flex flex-col items-center justify-center" onClick={(e) => e.stopPropagation()}>
+            {/* Close Button */}
             <button
               type="button"
               onClick={() => setSelectedProject(null)}
-              className="absolute -top-16 right-0 w-12 h-12 flex items-center justify-center bg-zinc-800 text-white rounded-full border border-white/10 hover:border-[#C9A84C] transition-all"
+              className="absolute top-6 right-6 w-12 h-12 flex items-center justify-center bg-zinc-800 text-white rounded-2xl border border-white/10 hover:border-[#C9A84C] hover:text-[#C9A84C] transition-all z-[110] group"
               title="Fermer"
             >
-              <i className="ri-close-line text-2xl"></i>
+              <i className="ri-close-line text-2xl group-hover:rotate-90 transition-transform duration-300"></i>
             </button>
 
-            <div className="relative overflow-hidden bg-zinc-900 shadow-2xl rounded-3xl border border-white/10">
+            {/* Header Info */}
+            <div className="absolute top-0 left-0 right-0 p-8 flex flex-col md:flex-row md:items-center justify-between z-[105] bg-gradient-to-b from-black/80 to-transparent">
+              <div className="max-w-2xl">
+                <h2 className="text-2xl md:text-3xl font-black text-white uppercase tracking-tight leading-loose mb-2">
+                  {selectedProject.title}
+                </h2>
+                <div className="flex flex-wrap gap-2">
+                  <span className="px-3 py-1 text-[10px] font-bold text-[#D4AF37] bg-[#D4AF37]/20 border border-[#D4AF37]/30 rounded uppercase tracking-widest shadow-[0_0_15px_rgba(212,175,55,0.1)]">
+                    {selectedProject.year}
+                  </span>
+                  {selectedProject.category.map((cat, index) => (
+                    <span key={index} className="px-3 py-1 text-[10px] font-bold text-white/90 bg-white/10 border border-white/20 rounded uppercase tracking-widest backdrop-blur-md">
+                      {cat}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Main Image Container */}
+            <div className="relative flex items-center justify-center w-full h-full p-4 md:p-32 overflow-hidden">
               <img
                 src={selectedProject.image}
                 alt={selectedProject.title}
-                className="w-full h-auto max-h-[85vh] object-contain mx-auto"
+                className="max-w-full max-h-full object-contain shadow-[0_0_100px_rgba(201,168,76,0.15)] animate-scale-in"
               />
-              <div className="absolute bottom-0 left-0 right-0 p-8 bg-zinc-800/80 backdrop-blur-xl border-t border-white/10">
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-                  <div>
-                    <h2 className="text-2xl font-black text-white uppercase tracking-tight mb-2">{selectedProject.title}</h2>
-                    <div className="flex flex-wrap gap-2">
-                      <span className="px-3 py-1 text-[10px] font-bold text-[#C9A84C] bg-[#C9A84C]/10 border border-[#C9A84C]/20 rounded uppercase tracking-widest">
-                        {selectedProject.year}
-                      </span>
-                      {selectedProject.category.map((cat, index) => (
-                        <span key={index} className="px-3 py-1 text-[10px] font-bold text-gray-400 bg-white/5 border border-white/10 rounded uppercase tracking-widest">
-                          {cat}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="flex gap-4">
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        const currentIndex = projects.findIndex(p => p.id === selectedProject.id);
-                        const prevIndex = currentIndex > 0 ? currentIndex - 1 : projects.length - 1;
-                        setSelectedProject(projects[prevIndex]);
-                      }}
-                      className="w-12 h-12 flex items-center justify-center bg-zinc-700/50 hover:bg-zinc-700 text-white rounded-xl border border-white/5"
-                    >
-                      <i className="ri-arrow-left-line text-xl"></i>
-                    </button>
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        const currentIndex = projects.findIndex(p => p.id === selectedProject.id);
-                        const nextIndex = currentIndex < projects.length - 1 ? currentIndex + 1 : 0;
-                        setSelectedProject(projects[nextIndex]);
-                      }}
-                      className="w-12 h-12 flex items-center justify-center bg-zinc-700/50 hover:bg-zinc-700 text-white rounded-xl border border-white/5"
-                    >
-                      <i className="ri-arrow-right-line text-xl"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
+            </div>
+
+            {/* Navigation Controls */}
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                const currentIndex = projects.findIndex(p => p.id === selectedProject.id);
+                const prevIndex = currentIndex > 0 ? currentIndex - 1 : projects.length - 1;
+                setSelectedProject(projects[prevIndex]);
+              }}
+              className="absolute left-4 md:left-10 top-1/2 -translate-y-1/2 w-14 h-14 flex items-center justify-center bg-black/50 hover:bg-[#C9A84C] text-white hover:text-black rounded-full border border-white/10 transition-all z-[110]"
+              title="Précédent"
+            >
+              <i className="ri-arrow-left-s-line text-3xl"></i>
+            </button>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                const currentIndex = projects.findIndex(p => p.id === selectedProject.id);
+                const nextIndex = currentIndex < projects.length - 1 ? currentIndex + 1 : 0;
+                setSelectedProject(projects[nextIndex]);
+              }}
+              className="absolute right-4 md:right-10 top-1/2 -translate-y-1/2 w-14 h-14 flex items-center justify-center bg-black/50 hover:bg-[#C9A84C] text-white hover:text-black rounded-full border border-white/10 transition-all z-[110]"
+              title="Suivant"
+            >
+              <i className="ri-arrow-right-s-line text-3xl"></i>
+            </button>
+
+            {/* Technologies Footer */}
+            <div className="absolute bottom-10 left-1/2 -translate-x-1/2 hidden md:flex items-center gap-3 z-[105]">
+              {selectedProject.tech.map((t, i) => (
+                <span key={i} className="px-4 py-2 bg-white/5 border border-white/10 text-white/50 text-[9px] font-bold uppercase tracking-widest rounded-xl">
+                  {t}
+                </span>
+              ))}
             </div>
           </div>
         </div>

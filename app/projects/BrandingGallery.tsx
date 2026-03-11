@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 
 interface Project {
   id: string;
@@ -13,14 +13,23 @@ interface Project {
   year: string;
 }
 
+interface GalleryImage {
+  url: string;
+  projectTitle: string;
+  projectId: string;
+  year: string;
+  tech: string[];
+}
+
 interface CompanyGroup {
   company: string;
-  projects: Project[];
-  totalProjects: number;
+  images: GalleryImage[];
+  totalImages: number;
 }
 
 interface BrandingGalleryProps {
   projects: Project[];
+  hideHeader?: boolean;
 }
 
 const extractCompanyName = (project: Project): string => {
@@ -47,26 +56,91 @@ const extractCompanyName = (project: Project): string => {
   return words[0] || 'Divers';
 };
 
-export default function BrandingGallery({ projects }: BrandingGalleryProps) {
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+export default function BrandingGallery({ projects, hideHeader }: BrandingGalleryProps) {
+  const [activeGroupIndex, setActiveGroupIndex] = useState<number | null>(null);
+  const [activeImageIndex, setActiveImageIndex] = useState<number>(0);
 
-  const groupProjectsByCompany = (projects: Project[]): CompanyGroup[] => {
-    const groups: { [key: string]: Project[] } = {};
+  // Group projects and flatten images by company
+  const groupImagesByCompany = useCallback((projects: Project[]): CompanyGroup[] => {
+    const groups: { [key: string]: GalleryImage[] } = {};
+
     projects.forEach(project => {
       const company = extractCompanyName(project);
       if (!groups[company]) {
         groups[company] = [];
       }
-      groups[company].push(project);
+
+      // Add main image
+      if (project.image) {
+        groups[company].push({
+          url: project.image,
+          projectTitle: project.title,
+          projectId: project.id,
+          year: project.year,
+          tech: project.tech
+        });
+      }
+
+      // Add auxiliary images
+      if (project.images && project.images.length > 0) {
+        project.images.forEach(imgUrl => {
+          // Avoid duplicating main image
+          if (imgUrl !== project.image) {
+            groups[company].push({
+              url: imgUrl,
+              projectTitle: project.title,
+              projectId: project.id,
+              year: project.year,
+              tech: project.tech
+            });
+          }
+        });
+      }
     });
-    return Object.entries(groups).map(([company, projects]) => ({
+
+    return Object.entries(groups).map(([company, images]) => ({
       company,
-      projects,
-      totalProjects: projects.length
-    })).sort((a, b) => b.totalProjects - a.totalProjects);
+      images,
+      totalImages: images.length
+    })).sort((a, b) => b.totalImages - a.totalImages);
+  }, []);
+
+  const companyGroups = groupImagesByCompany(projects);
+
+  const openLightbox = (groupIndex: number, imageIndex: number) => {
+    setActiveGroupIndex(groupIndex);
+    setActiveImageIndex(imageIndex);
+    document.body.style.overflow = 'hidden';
   };
 
-  const companyGroups = groupProjectsByCompany(projects);
+  const closeLightbox = () => {
+    setActiveGroupIndex(null);
+    document.body.style.overflow = 'auto';
+  };
+
+  const nextImage = useCallback(() => {
+    if (activeGroupIndex === null) return;
+    const group = companyGroups[activeGroupIndex];
+    setActiveImageIndex((prev) => (prev + 1) % group.images.length);
+  }, [activeGroupIndex, companyGroups]);
+
+  const prevImage = useCallback(() => {
+    if (activeGroupIndex === null) return;
+    const group = companyGroups[activeGroupIndex];
+    setActiveImageIndex((prev) => (prev - 1 + group.images.length) % group.images.length);
+  }, [activeGroupIndex, companyGroups]);
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (activeGroupIndex === null) return;
+      if (e.key === 'ArrowRight') nextImage();
+      if (e.key === 'ArrowLeft') prevImage();
+      if (e.key === 'Escape') closeLightbox();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [activeGroupIndex, nextImage, prevImage]);
 
   if (projects.length === 0) {
     return (
@@ -77,143 +151,160 @@ export default function BrandingGallery({ projects }: BrandingGalleryProps) {
     );
   }
 
-  return (
-    <>
-      <div className="text-center mb-16">
-        <div className="inline-flex items-center gap-3 mb-4">
-          <div className="h-px w-8 bg-[#C9A84C]"></div>
-          <h3 className="text-xl font-bold text-[#C9A84C] uppercase tracking-widest">
-            Projets de Branding
-          </h3>
-          <div className="h-px w-8 bg-[#C9A84C]"></div>
-        </div>
-        <p className="text-sm text-gray-500">
-          {projects.length} projet{projects.length > 1 ? 's' : ''} pour {companyGroups.length} entreprise{companyGroups.length > 1 ? 's' : ''}
-        </p>
-      </div>
+  const activeGroup = activeGroupIndex !== null ? companyGroups[activeGroupIndex] : null;
+  const activeImage = activeGroup ? activeGroup.images[activeImageIndex] : null;
 
-      <div className="space-y-20">
-        {companyGroups.map((group, groupIndex) => (
-          <div key={group.company} className="bg-zinc-900 border border-white/10 rounded-2xl p-8 shadow-2xl">
-            <div className="flex items-center justify-between mb-8 pb-6 border-b border-white/5">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 flex items-center justify-center bg-[#C9A84C]/10 text-[#C9A84C] border border-[#C9A84C]/20 rounded-xl">
-                  <i className="ri-building-line text-2xl"></i>
+  const renderContent = () => {
+    return (
+      <div className="space-y-24">
+        {companyGroups.map((group, groupIdx) => (
+          <div key={group.company} className="relative">
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+              <div className="flex items-center gap-5">
+                <div className="w-14 h-14 flex items-center justify-center bg-[#C9A84C]/10 text-[#C9A84C] border border-[#C9A84C]/20 rounded-2xl">
+                  <i className="ri-building-line text-3xl"></i>
                 </div>
                 <div>
-                  <h4 className="text-xl font-bold text-white uppercase tracking-tight">{group.company}</h4>
-                  <p className="text-gray-500 text-[10px] font-bold uppercase tracking-widest mt-1">
-                    {group.totalProjects} création{group.totalProjects > 1 ? 's' : ''} réalisée{group.totalProjects > 1 ? 's' : ''}
+                  <h4 className="text-2xl font-black text-white uppercase tracking-tight">{group.company}</h4>
+                  <p className="text-[#C9A84C] text-[10px] font-bold uppercase tracking-[0.2em] mt-1">
+                    {group.totalImages} élément{group.totalImages > 1 ? 's' : ''} graphique{group.totalImages > 1 ? 's' : ''}
                   </p>
                 </div>
               </div>
-              <div className="text-[10px] font-black text-[#C9A84C] bg-[#C9A84C]/5 border border-[#C9A84C]/20 px-3 py-1 rounded-full">
-                #{groupIndex + 1}
-              </div>
             </div>
 
-            <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
-              {group.projects.map((project) => {
-                const allImages = project.images && project.images.length > 0
-                  ? project.images
-                  : project.image ? [project.image] : [];
-
-                return allImages.map((imageUrl, imageIndex) => (
-                  <div
-                    key={`${project.id}-${imageIndex}`}
-                    className="group break-inside-avoid cursor-pointer mb-6"
-                    onClick={() => setSelectedProject(project)}
-                  >
-                    <div className="relative bg-black rounded-xl overflow-hidden border border-white/5 hover:border-[#C9A84C]/40 transition-all duration-500">
-                      <img
-                        src={imageUrl}
-                        alt={`${project.title} - Image ${imageIndex + 1}`}
-                        className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-700"
-                      />
-                      <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
-                        <div className="p-4 w-full">
-                          <h5 className="text-white font-bold text-[10px] mb-2 uppercase tracking-wide">
-                            {project.title}
-                          </h5>
-                          <span className="text-[#C9A84C] text-[9px] font-bold uppercase tracking-widest border border-[#C9A84C]/30 px-2 py-0.5 rounded">
-                            {project.year}
+            <div className="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8">
+              {group.images.map((img, imgIdx) => (
+                <div
+                  key={`${img.projectId}-${imgIdx}`}
+                  className="group break-inside-avoid cursor-pointer"
+                  onClick={() => openLightbox(groupIdx, imgIdx)}
+                >
+                  <div className="relative bg-zinc-900 rounded-2xl overflow-hidden border border-white/5 hover:border-[#C9A84C]/40 transition-all duration-500 shadow-xl group/card">
+                    <img
+                      src={img.url}
+                      alt={`${img.projectTitle}`}
+                      className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                      <div className="p-6 w-full transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                        <p className="text-[#C9A84C] text-[9px] font-bold uppercase tracking-widest mb-1 italic">
+                          {img.projectTitle}
+                        </p>
+                        <div className="flex items-center justify-between">
+                          <span className="text-white font-bold text-xs uppercase tracking-tight">
+                            Cliquez pour agrandir
                           </span>
+                          <i className="ri-zoom-in-line text-[#C9A84C] text-xl"></i>
                         </div>
                       </div>
                     </div>
                   </div>
-                ));
-              }).flat()}
+                </div>
+              ))}
             </div>
           </div>
         ))}
-      </div>
 
-      {selectedProject && (
-        <div className="fixed inset-0 bg-black/95 flex items-center justify-center p-4 z-50 backdrop-blur-md" onClick={() => setSelectedProject(null)}>
-          <div className="relative max-w-7xl max-h-[95vh] w-full" onClick={(e) => e.stopPropagation()}>
-            <button
-              type="button"
-              onClick={() => setSelectedProject(null)}
-              className="absolute -top-16 right-0 w-12 h-12 flex items-center justify-center bg-zinc-800 text-white rounded-full border border-white/10 hover:border-[#C9A84C] transition-all"
-              title="Fermer"
-            >
-              <i className="ri-close-line text-2xl"></i>
-            </button>
+        {activeGroup && activeImage && (
+          <div className="fixed inset-0 bg-black/98 flex items-center justify-center p-4 z-[100] backdrop-blur-xl animate-fade-in" onClick={closeLightbox}>
+            <div className="relative w-full h-full flex flex-col items-center justify-center" onClick={(e) => e.stopPropagation()}>
 
-            <div className="relative bg-zinc-900 rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
-              <img
-                src={selectedProject.image}
-                alt={selectedProject.title}
-                className="w-full h-auto max-h-[80vh] object-contain mx-auto"
-              />
-              <div className="bg-zinc-800/80 backdrop-blur-xl border-t border-white/10 p-8">
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+              {/* Header / Info */}
+              <div className="absolute top-0 left-0 right-0 p-6 flex items-center justify-between z-10 bg-gradient-to-b from-black/80 to-transparent">
+                <div className="flex items-center gap-4">
+                  <div className="h-10 w-1 bg-[#C9A84C]"></div>
                   <div>
-                    <h2 className="text-2xl font-black text-white uppercase tracking-tight mb-2">{selectedProject.title}</h2>
-                    <div className="flex flex-wrap gap-3">
-                      <span className="px-3 py-1 bg-[#C9A84C]/10 border border-[#C9A84C]/20 text-[#C9A84C] text-[10px] font-bold uppercase tracking-widest rounded">
-                        {selectedProject.year}
-                      </span>
-                      {selectedProject.tech.map((tech, index) => (
-                        <span key={index} className="px-3 py-1 bg-white/5 border border-white/10 text-gray-400 text-[10px] font-bold uppercase tracking-widest rounded">
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="flex gap-4">
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        const currentIndex = projects.findIndex(p => p.id === selectedProject.id);
-                        const prevIndex = currentIndex > 0 ? currentIndex - 1 : projects.length - 1;
-                        setSelectedProject(projects[prevIndex]);
-                      }}
-                      className="w-12 h-12 flex items-center justify-center bg-zinc-700/50 hover:bg-zinc-700 text-white rounded-xl border border-white/5"
-                    >
-                      <i className="ri-arrow-left-line text-xl"></i>
-                    </button>
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        const currentIndex = projects.findIndex(p => p.id === selectedProject.id);
-                        const nextIndex = currentIndex < projects.length - 1 ? currentIndex + 1 : 0;
-                        setSelectedProject(projects[nextIndex]);
-                      }}
-                      className="w-12 h-12 flex items-center justify-center bg-zinc-700/50 hover:bg-zinc-700 text-white rounded-xl border border-white/5"
-                    >
-                      <i className="ri-arrow-right-line text-xl"></i>
-                    </button>
+                    <h2 className="text-xl md:text-2xl font-black text-white uppercase tracking-tight leading-none">
+                      {activeGroup.company}
+                    </h2>
+                    <p className="text-[#C9A84C] text-[10px] font-bold uppercase tracking-widest mt-1">
+                      {activeImage.projectTitle} • {activeImage.year}
+                    </p>
                   </div>
                 </div>
+
+                <div className="flex items-center gap-6">
+                  <div className="hidden md:flex flex-col items-end">
+                    <span className="text-white/40 text-[10px] uppercase font-bold tracking-widest">Image</span>
+                    <span className="text-white font-black text-xl leading-none">
+                      {activeImageIndex + 1} <span className="text-white/20">/</span> {activeGroup.images.length}
+                    </span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={closeLightbox}
+                    className="w-12 h-12 flex items-center justify-center bg-zinc-800 text-white rounded-2xl border border-white/10 hover:border-[#C9A84C] hover:text-[#C9A84C] transition-all group"
+                  >
+                    <i className="ri-close-line text-2xl group-hover:rotate-90 transition-transform duration-300"></i>
+                  </button>
+                </div>
+              </div>
+
+              {/* Main Image */}
+              <div className="relative flex items-center justify-center w-full h-full p-4 md:p-32 overflow-hidden">
+                <img
+                  src={activeImage.url}
+                  alt={activeImage.projectTitle}
+                  className="max-w-full max-h-full object-contain shadow-[0_0_100px_rgba(201,168,76,0.15)] animate-scale-in"
+                />
+              </div>
+
+              {/* Navigation Controls */}
+              <button
+                onClick={prevImage}
+                className="absolute left-4 md:left-10 top-1/2 -translate-y-1/2 w-14 h-14 flex items-center justify-center bg-black/50 hover:bg-[#C9A84C] text-white hover:text-black rounded-full border border-white/10 transition-all z-20"
+                title="Précédent"
+              >
+                <i className="ri-arrow-left-s-line text-3xl"></i>
+              </button>
+              <button
+                onClick={nextImage}
+                className="absolute right-4 md:right-10 top-1/2 -translate-y-1/2 w-14 h-14 flex items-center justify-center bg-black/50 hover:bg-[#C9A84C] text-white hover:text-black rounded-full border border-white/10 transition-all z-20"
+                title="Suivant"
+              >
+                <i className="ri-arrow-right-s-line text-3xl"></i>
+              </button>
+
+              {/* Technologies Footer */}
+              <div className="absolute bottom-10 left-1/2 -translate-x-1/2 hidden md:flex items-center gap-3 z-[105]">
+                {activeImage.tech.map((t, i) => (
+                  <span key={i} className="px-4 py-2 bg-white/10 border border-white/20 text-white/90 text-[9px] font-bold uppercase tracking-widest rounded-xl backdrop-blur-md shadow-xl">
+                    {t}
+                  </span>
+                ))}
+              </div>
+
+              {/* Mobile Index */}
+              <div className="absolute bottom-6 md:hidden text-white/60 text-xs font-bold tracking-[0.3em] uppercase">
+                {activeImageIndex + 1} / {activeGroup.images.length}
               </div>
             </div>
           </div>
+        )}
+      </div>
+    );
+  };
+
+  if (!hideHeader) {
+    return (
+      <>
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-3 mb-4">
+            <div className="h-px w-8 bg-[#C9A84C]"></div>
+            <h3 className="text-xl font-bold text-[#C9A84C] uppercase tracking-widest">
+              Identités Visuelles
+            </h3>
+            <div className="h-px w-8 bg-[#C9A84C]"></div>
+          </div>
+          <p className="text-sm text-gray-500">
+            Découvrez nos créations groupées par entreprise pour une vision globale de chaque marque.
+          </p>
         </div>
-      )}
-    </>
-  );
+        {renderContent()}
+      </>
+    );
+  }
+
+  return renderContent();
 }

@@ -8,7 +8,7 @@ export default function ProjectsPage() {
   return (
     <div className="min-h-screen">
       <Header />
-      <main className="pt-20">
+      <main className="pt-32 lg:pt-12">
         <ProjectsHero />
         <ProjectsGrid />
       </main>
